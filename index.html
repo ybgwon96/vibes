@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibes — 블라인드 MVP 매칭</title>
+  <meta name="description" content="포트폴리오 말고, 결과물로 증명하세요. 바이브 코딩 시대의 블라인드 MVP 매칭 플랫폼.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Vibes — 블라인드 MVP 매칭">
+  <meta property="og:description" content="포트폴리오 말고, 결과물로 증명하세요.">
+  <meta property="og:image" content="https://vibes.dev/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0A0A0A;
+      --bg-box: #0F0F0F;
+      --bg-hover: #141414;
+      --bg-input: #0A0A0A;
+      --border: #1E1E1E;
+      --border-bright: #2A2A2A;
+      --text: #C8C8C8;
+      --text-bright: #E8E8E8;
+      --text-secondary: #777;
+      --text-dim: #444;
+      --accent: #D4875E;
+      --accent-dim: rgba(212, 135, 94, 0.12);
+      --green: #4ADE80;
+      --green-dim: rgba(74, 222, 128, 0.10);
+      --red: #F07070;
+      --red-dim: rgba(240, 112, 112, 0.08);
+      --yellow: #E0B050;
+      --blue: #6BA5E8;
+      --mono: 'JetBrains Mono', monospace;
+      --body: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--mono);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 80px 0; }
+
+    /* ── Top Accent Line ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #E8A070, var(--accent));
+      z-index: 200;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+      position: relative;
+    }
+    .divider::after {
+      content: '◆';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg);
+      padding: 0 12px;
+      font-size: 8px;
+      color: var(--accent);
+      letter-spacing: 4px;
+    }
+
+    /* ── Cursor Blink ── */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor {
+      animation: blink 1s step-end infinite;
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    /* ── Thinking Pulse ── */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .thinking {
+      color: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ── Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .nav.scrolled {
+      border-bottom-color: var(--border);
+    }
+    .nav__inner {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav__logo-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bg);
+      letter-spacing: -1px;
+      box-shadow: 0 0 16px var(--accent-dim), 0 0 0 1px rgba(212, 135, 94, 0.2);
+    }
+    .nav__logo-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.5px;
+    }
+    .nav__cta {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      border: 1px solid rgba(212, 135, 94, 0.3);
+      background: transparent;
+      padding: 7px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav__cta:hover {
+      color: var(--bg);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding-top: 120px;
+      padding-bottom: 64px;
+    }
+    .hero__tag {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 32px;
+      letter-spacing: 0.5px;
+    }
+    .hero__title {
+      font-family: var(--body);
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 800;
+      color: var(--text-bright);
+      line-height: 1.35;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .hero__sub {
+      font-family: var(--body);
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 48px;
+      max-width: 480px;
+    }
+
+    /* ── CLI Box ── */
+    .cli-box {
+      border: 1px solid var(--border);
+      border-top: 1px solid rgba(212, 135, 94, 0.25);
+      border-radius: 8px;
+      background: var(--bg-box);
+      padding: 24px;
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .cli-box__title {
+      position: absolute;
+      top: -9px;
+      left: 16px;
+      background: var(--bg-box);
+      padding: 0 8px;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+    }
+    .cli-box__line {
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 1.7em;
+    }
+    .cli-box__prompt { color: var(--accent); font-weight: 600; }
+    .cli-box__cmd { color: var(--text-bright); }
+    .cli-box__dim { color: var(--text-secondary); }
+    .cli-box__label { color: var(--text-dim); display: inline-block; min-width: 48px; }
+    .cli-box__val { color: var(--text); }
+    .cli-box__arrow { color: var(--blue); }
+    .cli-box__ok { color: var(--green); }
+
+    .cli-progress {
+      font-size: 13px;
+      letter-spacing: -1px;
+      margin: 4px 0;
+    }
+    .cli-progress__fill { color: var(--accent); }
+    .cli-progress__empty { color: var(--border); }
+    .cli-progress__pct { color: var(--text-dim); letter-spacing: 0; margin-left: 8px; font-size: 12px; }
+
+    /* ── Buttons ── */
+    .btn {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 28px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn--accent {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    .btn--accent:hover {
+      background: #E09570;
+      border-color: #E09570;
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border-bright);
+    }
+    .btn--ghost:hover {
+      color: var(--text);
+      border-color: var(--text-dim);
+    }
+    .hero__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Problem ── */
+    .problem__head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .problem__head-icon {
+      color: var(--red);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .problem__title {
+      font-family: var(--body);
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.5px;
+    }
+    .problem__desc {
+      color: var(--text-secondary);
+      font-family: var(--body);
+      font-size: 14px;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .warn-item {
+      border-left: 2px solid var(--border-bright);
+      padding: 16px 0 16px 20px;
+      margin-bottom: 4px;
+      transition: border-color 0.2s;
+    }
+    .warn-item:hover {
+      border-left-color: var(--accent);
+    }
+    .warn-item__head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .warn-item__tag {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .warn-item__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+    .warn-item__body {
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding-left: 2px;
+    }
+
+    /* ── Solution ── */
+    .solution__head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .solution__head-icon {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .solution__title {
+      font-family: var(--body);
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.5px;
+    }
+    .solution__desc {
+      color: var(--text-secondary);
+      font-family: var(--body);
+      font-size: 14px;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    /* Diff */
+    .diff {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-box);
+      overflow: hidden;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .diff__title {
+      padding: 10px 20px;
+      font-size: 11px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.3px;
+    }
+    .diff__body {
+      padding: 8px 0;
+    }
+    .diff__hunk {
+      padding: 2px 20px;
+      color: var(--text-dim);
+      font-size: 12px;
+    }
+    .diff__line {
+      padding: 1px 20px;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .diff__line.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .diff__line--del {
+      background: var(--red-dim);
+      color: var(--red);
+    }
+    .diff__line--add {
+      background: var(--green-dim);
+      color: var(--green);
+    }
+    .diff__line--ctx {
+      color: var(--text-dim);
+    }
+
+    /* Quote */
+    .quote {
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+    }
+    .quote__text {
+      font-family: var(--body);
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-style: italic;
+      line-height: 1.7;
+    }
+    .quote__cite {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+
+    /* ── How (--help) ── */
+    .how__prompt {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    .how__prompt-char { color: var(--accent); font-weight: 600; }
+    .how__prompt-cmd { color: var(--text-bright); }
+    .how__tagline {
+      color: var(--text-secondary);
+      font-family: var(--body);
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    .how__section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .cmd-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .cmd-item__name {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 14px;
+      padding-top: 1px;
+    }
+    .cmd-item__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 4px;
+    }
+    .cmd-item__desc {
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Waitlist ── */
+    .waitlist { text-align: center; }
+    .waitlist__title {
+      font-family: var(--body);
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .waitlist__sub {
+      color: var(--text-secondary);
+      font-family: var(--body);
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    .waitlist__box {
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    /* Toggle */
+    .toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .toggle__btn {
+      flex: 1;
+      padding: 10px 0;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .toggle__btn:first-child { border-right: 1px solid var(--border); }
+    .toggle__btn.active[data-role="developer"] {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+    .toggle__btn.active[data-role="client"] {
+      background: rgba(167, 139, 250, 0.08);
+      color: #A78BFA;
+    }
+
+    /* Form */
+    .form-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .form-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      width: 48px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .form-label .req { color: var(--red); }
+    .form-input {
+      flex: 1;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input::placeholder { color: var(--text-dim); }
+    .form-input:focus { border-color: var(--accent); }
+    .form-input.focus--purple:focus { border-color: #A78BFA; }
+    .form-error {
+      font-size: 12px;
+      color: var(--red);
+      margin: -8px 0 12px 60px;
+      display: none;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .form-submit--dev {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .form-submit--dev:hover { background: #E09570; }
+    .form-submit--client {
+      background: #A78BFA;
+      color: var(--bg);
+    }
+    .form-submit--client:hover { background: #B89DFC; }
+    .form-submit:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Result */
+    .form-result {
+      display: none;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .form-result__text {
+      font-size: 15px;
+      color: var(--green);
+      min-height: 1.5em;
+    }
+    .form-result__sub {
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 12px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer a:hover { color: var(--accent); }
+    .footer__links {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      body { font-size: 13px; }
+      section { padding: 64px 0; }
+      .hero { padding-top: 100px; padding-bottom: 48px; }
+      .hero__actions { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+      .cli-box { padding: 18px 16px; }
+      .diff__line, .diff__hunk, .diff__title { padding-left: 14px; padding-right: 14px; }
+      .cmd-item { grid-template-columns: 1fr; gap: 4px; }
+      .cmd-item__name { font-size: 13px; }
+      .form-group { flex-direction: column; align-items: stretch; gap: 6px; }
+      .form-label { width: auto; text-align: left; }
+      .form-error { margin-left: 0; }
+      .footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .diff__line { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">
+        <span class="nav__logo-mark">❯</span>
+        <span class="nav__logo-text">vibes</span>
+      </a>
+    <a href="#waitlist" class="nav__cta">웨이트리스트 등록</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero__tag reveal">[EARLY ACCESS]</div>
+      <h1 class="hero__title reveal">포트폴리오 말고,<br><span style="color:var(--accent)">결과물</span>로 증명하세요.</h1>
+      <p class="hero__sub reveal">바이브 코딩 시대, 포트폴리오가 아닌 실제 MVP 결과물로 개발자와 클라이언트를 블라인드 매칭합니다.</p>
+
+      <div class="cli-box reveal" id="heroBox">
+        <span class="cli-box__title">vibes-cli</span>
+        <div id="heroTerminal"></div>
+      </div>
+
+      <div class="hero__actions reveal">
+        <a href="#waitlist" class="btn btn--accent">웨이트리스트 등록 →</a>
+        <a href="#how" class="btn btn--ghost">어떻게 작동하나요?</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Problem -->
+  <section class="problem" id="problem">
+    <div class="wrap">
+      <div class="problem__head reveal">
+        <span class="problem__head-icon">✗ ERROR</span>
+      </div>
+      <h2 class="problem__title reveal">외주 시장은 고장났습니다</h2>
+      <p class="problem__desc reveal">포트폴리오와 영업력이 실력을 대체하는 시장. 클라이언트는 진짜 실력자를 찾기 어렵고, 실력 있는 개발자는 묻힙니다.</p>
+
+      <div class="warn-item reveal">
+        <div class="warn-item__head">
+          <span class="warn-item__tag">▸ WARN</span>
+          <span class="warn-item__title">포트폴리오 과잉 포장</span>
+        </div>
+        <p class="warn-item__body">화려한 Figma 목업, 부풀린 이력서. 실제 코드 퀄리티는 배포 후에야 드러납니다.</p>
+      </div>
+      <div class="warn-item reveal">
+        <div class="warn-item__head">
+          <span class="warn-item__tag">▸ WARN</span>
+          <span class="warn-item__title">바이브 코딩 시대</span>
+        </div>
+        <p class="warn-item__body">AI가 코드를 쓰는 시대. 진짜 실력은 무엇을 만드느냐, 어떤 결과를 내느냐로 결정됩니다.</p>
+      </div>
+      <div class="warn-item reveal">
+        <div class="warn-item__head">
+          <span class="warn-item__tag">▸ WARN</span>
+          <span class="warn-item__title">영업력 > 실력</span>
+        </div>
+        <p class="warn-item__body">말 잘하는 에이전시가 일감을 독점합니다. 조용한 실력자는 기회조차 얻지 못합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Solution -->
+  <section class="solution" id="solution">
+    <div class="wrap">
+      <div class="solution__head reveal">
+        <span class="solution__head-icon">✓ OK</span>
+      </div>
+      <h2 class="solution__title reveal">결과물이 이력서를 대체합니다</h2>
+      <p class="solution__desc reveal">Vibes는 포트폴리오 대신 실제 MVP 빌드 결과를 기준으로 매칭합니다.</p>
+
+      <div class="diff reveal" id="diffBlock">
+        <div class="diff__title">matching-engine.diff</div>
+        <div class="diff__body" id="diffBody">
+          <div class="diff__hunk">@@ 기존 외주 매칭 @@</div>
+          <div class="diff__line diff__line--del">- 화려한 포트폴리오로 클라이언트 현혹</div>
+          <div class="diff__line diff__line--del">- 에이전시 영업력이 프로젝트 수주 좌우</div>
+          <div class="diff__line diff__line--del">- 배포 후에야 실력 검증 (이미 늦음)</div>
+          <div class="diff__line diff__line--ctx">&nbsp;</div>
+          <div class="diff__hunk">@@ Vibes 매칭 @@</div>
+          <div class="diff__line diff__line--add">+ 동일 과제를 블라인드로 빌드</div>
+          <div class="diff__line diff__line--add">+ 실제 MVP 결과물만으로 실력 검증</div>
+          <div class="diff__line diff__line--add">+ 클라이언트가 결과물 보고 직접 선택</div>
+          <div class="diff__line diff__line--add">+ 매칭 후에도 마일스톤 기반 검증</div>
+        </div>
+      </div>
+
+      <div class="quote reveal">
+        <p class="quote__text">"개발자는 인간 AI처럼 일합니다. 프롬프트(요구사항)를 받고, 결과물을 내놓죠."</p>
+        <p class="quote__cite">— Vibes의 매칭 철학</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- How it Works -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="how__prompt reveal">
+        <span class="how__prompt-char">❯ </span><span class="how__prompt-cmd">vibes --help</span>
+      </div>
+      <p class="how__tagline reveal">4단계로 완성되는 블라인드 MVP 매칭</p>
+      <div class="how__section-label reveal">COMMANDS</div>
+
+      <div class="cmd-item reveal">
+        <div class="cmd-item__name">init</div>
+        <div>
+          <div class="cmd-item__title">요구사항 등록</div>
+          <p class="cmd-item__desc">클라이언트가 원하는 MVP의 핵심 기능과 기술 스택을 등록합니다. 예산과 일정도 함께 설정합니다.</p>
+        </div>
+      </div>
+      <div class="cmd-item reveal">
+        <div class="cmd-item__name">match</div>
+        <div>
+          <div class="cmd-item__title">블라인드 빌드 과제</div>
+          <p class="cmd-item__desc">매칭된 개발자들이 동일한 미니 과제를 블라인드로 수행합니다. 이름, 경력, 포트폴리오 — 모두 비공개.</p>
+        </div>
+      </div>
+      <div class="cmd-item reveal">
+        <div class="cmd-item__name">build</div>
+        <div>
+          <div class="cmd-item__title">결과물 평가</div>
+          <p class="cmd-item__desc">클라이언트가 블라인드 결과물을 비교 평가합니다. 코드 품질, 완성도, 속도 — 결과물이 전부입니다.</p>
+        </div>
+      </div>
+      <div class="cmd-item reveal">
+        <div class="cmd-item__name">select</div>
+        <div>
+          <div class="cmd-item__title">매칭 & 프로젝트 시작</div>
+          <p class="cmd-item__desc">선택된 개발자와 프로젝트를 시작합니다. 마일스톤 기반으로 진행하며, 결과물로 계속 검증합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Waitlist -->
+  <section class="waitlist" id="waitlist">
+    <div class="wrap">
+      <h2 class="waitlist__title reveal">웨이트리스트 등록</h2>
+      <p class="waitlist__sub reveal">결과물로 증명하는 시대, 가장 먼저 시작하세요.</p>
+
+      <div class="waitlist__box">
+        <div class="cli-box reveal">
+          <span class="cli-box__title">vibes register</span>
+
+          <div id="formView">
+            <div class="toggle">
+              <button class="toggle__btn active" data-role="developer" type="button">개발자</button>
+              <button class="toggle__btn" data-role="client" type="button">클라이언트</button>
+            </div>
+            <form id="signupForm" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="inputName">name</label>
+                <input type="text" class="form-input" id="inputName" placeholder="홍길동" autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="inputEmail">email<span class="req">*</span></label>
+                <input type="email" class="form-input" id="inputEmail" placeholder="you@example.com" required autocomplete="email">
+              </div>
+              <div class="form-error" id="emailError">유효한 이메일을 입력해주세요.</div>
+              <input type="hidden" id="inputRole" value="developer">
+              <button type="submit" class="form-submit form-submit--dev" id="submitBtn">register --developer →</button>
+            </form>
+          </div>
+
+          <div class="form-result" id="resultView">
+            <div class="form-result__text" id="resultText"></div>
+            <p class="form-result__sub">런칭 소식을 이메일로 알려드릴게요.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer">
+      <span>© 2026 Vibes</span>
+      <div class="footer__links">
+        <a href="https://www.threads.net/@vibes" target="_blank" rel="noopener">Threads</a>
+        <a href="https://www.instagram.com/vibes" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Nav scroll ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), { passive: true });
+
+/* ── Reveal ── */
+const io = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }),
+  { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+);
+document.querySelectorAll('section, footer').forEach(sec => {
+  sec.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 60}ms`;
+    io.observe(el);
+  });
+});
+/* Hero instant */
+document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+  setTimeout(() => el.classList.add('visible'), 80 + i * 100);
+});
+
+/* ── Diff line reveal ── */
+const diffIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.diff__line').forEach((l, i) => {
+      setTimeout(() => l.classList.add('visible'), i * 100);
+    });
+    diffIo.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+const diffEl = document.getElementById('diffBlock');
+if (diffEl) diffIo.observe(diffEl);
+
+/* ── Hero terminal animation ── */
+const heroTerm = document.getElementById('heroTerminal');
+
+function el(cls, html) {
+  const d = document.createElement('div');
+  d.className = 'cli-box__line';
+  if (cls) d.classList.add(cls);
+  d.innerHTML = html;
+  heroTerm.appendChild(d);
+  return d;
+}
+
+async function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function typeText(parent, text, speed = 40) {
+  const span = document.createElement('span');
+  parent.appendChild(span);
+  for (const ch of text) {
+    span.textContent += ch;
+    await wait(speed + Math.random() * 20);
+  }
+}
+
+async function heroAnim() {
+  /* prompt */
+  const line1 = el(null, '<span class="cli-box__prompt">❯ </span><span class="cli-box__cmd"></span><span class="cursor">▋</span>');
+  const cmdSpan = line1.querySelector('.cli-box__cmd');
+  const cur = line1.querySelector('.cursor');
+  await wait(400);
+  await typeText(cmdSpan, 'vibes --match');
+  cur.remove();
+  await wait(500);
+
+  /* thinking */
+  const think = el(null, '<span class="thinking">⏺</span> <span class="cli-box__dim">요구사항 분석 중...</span>');
+  await wait(800);
+
+  /* metadata */
+  el(null, '');
+  el(null, '  <span class="cli-box__label">기능</span> <span class="cli-box__val">소셜 커머스 MVP</span>');
+  await wait(200);
+  el(null, '  <span class="cli-box__label">스택</span> <span class="cli-box__val">Next.js + Supabase</span>');
+  await wait(200);
+  el(null, '  <span class="cli-box__label">기한</span> <span class="cli-box__val">2주</span>');
+  await wait(600);
+
+  /* remove thinking, add result */
+  think.innerHTML = '<span class="cli-box__arrow">→</span> 3명의 개발자 블라인드 매칭 완료';
+  await wait(400);
+
+  /* progress bar */
+  el(null, '');
+  const pLine = el(null, '<span class="cli-progress"></span>');
+  const prog = pLine.querySelector('.cli-progress');
+  const total = 30;
+  const duration = 1800;
+  const start = performance.now();
+  await new Promise(resolve => {
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const filled = Math.round(p * total);
+      const empty = total - filled;
+      prog.innerHTML =
+        '<span class="cli-progress__fill">' + '█'.repeat(filled) + '</span>' +
+        '<span class="cli-progress__empty">' + '░'.repeat(empty) + '</span>' +
+        '<span class="cli-progress__pct">' + Math.round(p * 100) + '%</span>';
+      if (p < 1) requestAnimationFrame(tick); else resolve();
+    }
+    requestAnimationFrame(tick);
+  });
+  await wait(300);
+
+  /* success */
+  el(null, '');
+  el(null, '<span class="cli-box__ok">✓</span> MVP 빌드 완료 — 결과물로 선택하세요');
+}
+
+const heroBoxObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    setTimeout(heroAnim, 500);
+    heroBoxObs.unobserve(entries[0].target);
+  }
+}, { threshold: 0.3 });
+heroBoxObs.observe(document.getElementById('heroBox'));
+
+/* ── Toggle ── */
+const toggleBtns = document.querySelectorAll('.toggle__btn');
+const inputRole = document.getElementById('inputRole');
+const submitBtn = document.getElementById('submitBtn');
+const emailInput = document.getElementById('inputEmail');
+const nameInput = document.getElementById('inputName');
+
+toggleBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    toggleBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const role = btn.dataset.role;
+    inputRole.value = role;
+    if (role === 'developer') {
+      submitBtn.className = 'form-submit form-submit--dev';
+      submitBtn.textContent = 'register --developer →';
+      emailInput.className = 'form-input';
+      nameInput.className = 'form-input';
+    } else {
+      submitBtn.className = 'form-submit form-submit--client';
+      submitBtn.textContent = 'register --client →';
+      emailInput.className = 'form-input focus--purple';
+      nameInput.className = 'form-input focus--purple';
+    }
+  });
+});
+
+/* ── Form ── */
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const form = document.getElementById('signupForm');
+const formView = document.getElementById('formView');
+const resultView = document.getElementById('resultView');
+const resultText = document.getElementById('resultText');
+const emailError = document.getElementById('emailError');
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = emailInput.value.trim();
+  if (!emailRe.test(email)) {
+    emailError.style.display = 'block';
+    emailInput.focus();
+    return;
+  }
+  emailError.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = '전송 중...';
+
+  const role = inputRole.value;
+  const name = nameInput.value.trim();
+
+  /* Google Forms — 실제 Form ID / entry ID로 교체 필요 */
+  const url = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+  const fd = new URLSearchParams();
+  fd.append('entry.NAME_ID', name);
+  fd.append('entry.EMAIL_ID', email);
+  fd.append('entry.ROLE_ID', role);
+  try { await fetch(url, { method: 'POST', mode: 'no-cors', body: fd }); } catch {}
+
+  formView.style.display = 'none';
+  resultView.style.display = 'block';
+
+  const msg = `✓ ${role === 'developer' ? '개발자' : '클라이언트'}로 등록 완료!`;
+  resultText.textContent = '';
+  for (const ch of msg) {
+    resultText.textContent += ch;
+    await wait(30);
+  }
+});
+
+emailInput.addEventListener('input', () => { emailError.style.display = 'none'; });
+
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
