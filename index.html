@@ -285,14 +285,15 @@
       top: 15%;
       left: 50%;
       transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
+      width: 900px;
+      height: 900px;
       background:
-        radial-gradient(circle at 45% 45%, var(--accent-glow) 0%, transparent 50%),
-        radial-gradient(circle at 55% 55%, rgba(74, 222, 128, 0.04) 0%, transparent 45%);
+        radial-gradient(circle at 45% 45%, rgba(212, 168, 83, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 55% 55%, rgba(74, 222, 128, 0.06) 0%, transparent 45%);
       pointer-events: none;
       z-index: 0;
-      filter: blur(80px);
+      filter: blur(60px);
+      animation: heroGlowPulse 8s ease-in-out infinite;
     }
     .hero > .wrap {
       position: relative;
@@ -329,8 +330,13 @@
       color: var(--accent);
     }
     .hero__title-accent {
-      color: var(--accent);
       position: relative;
+      background: linear-gradient(105deg, #D4A853 0%, #F0D78C 25%, #D4A853 50%, #C49A3C 75%, #D4A853 100%);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s ease-in-out infinite;
     }
     .hero__sub {
       font-family: var(--body);
@@ -401,8 +407,9 @@
       white-space: nowrap;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      padding: 18px 0;
       position: relative;
+      background: var(--surface);
     }
     .marquee::before,
     .marquee::after {
@@ -428,7 +435,7 @@
     }
     .marquee__item {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--text-dim);
@@ -443,6 +450,7 @@
       background: var(--accent);
       border-radius: 50%;
       opacity: 0.5;
+      box-shadow: 0 0 6px var(--accent-glow);
     }
     @keyframes scroll {
       0% { transform: translateX(0); }
@@ -476,7 +484,7 @@
     }
     .section__title {
       font-family: var(--serif-kr);
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
       font-weight: 700;
       color: var(--text-bright);
       letter-spacing: -1px;
@@ -496,6 +504,18 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--border-bright) 30%, var(--accent-muted) 50%, var(--border-bright) 70%, transparent);
       margin: 0;
+      position: relative;
+    }
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 30px;
+      background: radial-gradient(ellipse, rgba(212, 168, 83, 0.08) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     /* ── Problem ── */
@@ -507,7 +527,7 @@
       margin-top: var(--space-12);
     }
     .problem-card {
-      background: var(--surface);
+      background: linear-gradient(165deg, var(--surface-2), var(--surface));
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 32px 28px;
@@ -516,6 +536,7 @@
       opacity: 0;
       transform: translateY(24px);
       overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     }
     .problem-card::before {
       content: '';
@@ -523,7 +544,7 @@
       top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--red), transparent);
-      opacity: 0;
+      opacity: 0.25;
       transition: opacity var(--duration-base);
     }
     .problem-card::after {
@@ -673,21 +694,35 @@
     .quote {
       margin-top: var(--space-12);
       text-align: center;
-      max-width: 600px;
+      max-width: 640px;
       margin-left: auto;
       margin-right: auto;
+      padding: 48px 0;
+      position: relative;
     }
+    .quote::before,
+    .quote::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-muted), transparent);
+    }
+    .quote::before { top: 0; }
+    .quote::after { bottom: 0; }
     .quote__mark {
       font-family: var(--serif);
-      font-size: 64px;
+      font-size: 80px;
       line-height: 0.5;
       color: var(--accent);
       opacity: 0.3;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
     .quote__text {
       font-family: var(--serif-kr);
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 600;
       color: var(--text-bright);
       line-height: 1.8;
@@ -761,7 +796,10 @@
     .t-bar-pct { color: var(--text-dim); letter-spacing: 0; margin-left: 8px; font-size: 12px; }
 
     /* ── How (Timeline) ── */
-    .how { padding: 120px 0; }
+    .how {
+      padding: 120px 0;
+      background: radial-gradient(ellipse at 10% 50%, rgba(212, 168, 83, 0.03) 0%, transparent 50%);
+    }
     .how__prompt {
       font-family: var(--mono);
       font-size: 14px;
@@ -786,12 +824,19 @@
       left: 23px;
       width: 2px;
       background: linear-gradient(to bottom, var(--accent-muted), var(--border) 40%, var(--border));
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 1.2s var(--ease);
+      z-index: 0;
+    }
+    .timeline.timeline--active::before {
+      transform: scaleY(1);
     }
     .timeline__step {
       display: grid;
       grid-template-columns: 48px 1fr;
       gap: var(--space-6);
-      padding-bottom: var(--space-12);
+      padding-bottom: 36px;
       position: relative;
     }
     .timeline__step:last-child { padding-bottom: 0; }
@@ -815,7 +860,7 @@
     .timeline__step:hover .timeline__marker {
       border-color: var(--accent);
       color: var(--accent);
-      background: var(--accent-soft);
+      background: var(--surface-2);
       box-shadow: 0 0 24px var(--accent-glow);
       transform: scale(1.05);
     }
@@ -829,14 +874,14 @@
       color: var(--accent);
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .timeline__title {
       font-family: var(--serif-kr);
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-bright);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .timeline__desc {
       font-size: 14px;
@@ -856,16 +901,20 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 60%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 168, 83, 0.15) 0%, transparent 60%);
       pointer-events: none;
-      filter: blur(40px);
+      filter: blur(30px);
+      transition: transform 0.6s var(--ease);
+    }
+    .waitlist:has(.form-input:focus) .waitlist__glow {
+      transform: translate(-50%, -50%) scale(1.15);
     }
     .waitlist > .wrap { position: relative; z-index: 1; }
     .waitlist__title {
       font-family: var(--serif-kr);
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
       font-weight: 700;
       color: var(--text-bright);
       letter-spacing: -1px;
@@ -1225,6 +1274,99 @@
       100% { height: 12px; }
     }
 
+    /* ── Background Dot Grid ── */
+    .bg-dots {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Shimmer ── */
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── Hero Glow Pulse ── */
+    @keyframes heroGlowPulse {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.08); opacity: 0.85; }
+    }
+
+    /* ── Hero Title Glitch ── */
+    @keyframes heroTitleGlitch {
+      0% { clip-path: inset(40% 0 40% 0); }
+      8% { clip-path: inset(10% 0 80% 0); }
+      16% { clip-path: inset(70% 0 5% 0); }
+      24% { clip-path: inset(20% 0 30% 0); }
+      32% { clip-path: inset(5% 0 60% 0); }
+      40%, 100% { clip-path: inset(0); }
+    }
+    .hero__title.vis {
+      animation: heroTitleGlitch 0.5s var(--ease);
+    }
+
+    /* ── Section Background Variations ── */
+    #problem {
+      background: linear-gradient(180deg, var(--bg), #0A0A10, #0C0C12, var(--bg));
+    }
+    .waitlist {
+      background: radial-gradient(ellipse at center, rgba(212, 168, 83, 0.04) 0%, transparent 50%);
+    }
+
+    /* ── Scroll Indicator ── */
+    .hero__scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent-muted), transparent);
+      animation: scrollFloat 2s ease-in-out infinite;
+      z-index: 1;
+    }
+    @keyframes scrollFloat {
+      0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 0.4; transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── Diff Line Hover ── */
+    .diff__line:hover { background: rgba(255,255,255,0.02); }
+    .diff__line--del:hover { background: rgba(248, 113, 113, 0.08); }
+    .diff__line--add:hover { background: rgba(74, 222, 128, 0.08); }
+
+    /* ── Terminal Scanline ── */
+    .terminal__content { position: relative; }
+    .terminal__content::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.008) 2px,
+        rgba(255,255,255,0.008) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* ── Nav Logo Hover Glow ── */
+    .nav__logo:hover .nav__logo-mark {
+      box-shadow: 0 0 12px var(--accent-glow);
+      transition: box-shadow 0.3s;
+    }
+
+    /* ── Button Hover Polish ── */
+    .btn--primary:hover { letter-spacing: 1.5px; }
+    .btn--ghost:hover { letter-spacing: 1px; }
+
     /* ── Responsive ── */
     @media (max-width: 1024px) {
       .wrap { padding: 0 32px; }
@@ -1246,6 +1388,7 @@
       body { font-size: 14px; }
       .wrap { padding: 0 20px; }
       .hero { min-height: auto; padding: 100px 0 60px; }
+      .hero__scroll-indicator { display: none; }
       .hero__actions { flex-direction: column; }
       .btn { width: 100%; justify-content: center; min-height: 48px; }
       .form-group { flex-direction: column; align-items: stretch; gap: 6px; }
@@ -1301,10 +1444,17 @@
       .diff__line { opacity: 1; transform: none; }
       .blind::after { display: none; }
       .marquee__track { animation-play-state: paused; }
+      .hero__glow { animation: none; }
+      .hero__title-accent { animation: none; background: none; -webkit-text-fill-color: var(--accent); }
+      .hero__title.vis { animation: none; }
+      .hero__scroll-indicator { animation: none; opacity: 0.5; }
+      .timeline::before { transform: scaleY(1); transition: none; }
     }
   </style>
 </head>
 <body>
+
+<div class="bg-dots" aria-hidden="true"></div>
 
 <a href="#main-content" class="skip-link">본문 바로가기</a>
 
@@ -1333,6 +1483,7 @@
         <a href="#how" class="btn btn--ghost">어떻게 작동하나요?</a>
       </div>
     </div>
+    <div class="hero__scroll-indicator" aria-hidden="true"></div>
   </section>
 
   <!-- Marquee -->
@@ -1356,7 +1507,7 @@
   <!-- Problem -->
   <section class="section" id="problem" aria-labelledby="problem-title">
     <div class="wrap">
-      <div class="section__eyebrow section__eyebrow--error rv">ERROR</div>
+      <div class="section__eyebrow section__eyebrow--error rv">// ERROR</div>
       <h2 class="section__title rv" id="problem-title">외주 시장은 고장났습니다</h2>
       <p class="section__desc rv">포트폴리오와 영업력이 실력을 대체하는 시장. 실력 있는 개발자는 묻히고, 클라이언트는 진짜를 찾지 못합니다.</p>
 
@@ -1385,7 +1536,7 @@
   <!-- Solution -->
   <section class="section" id="solution" aria-labelledby="solution-title">
     <div class="wrap">
-      <div class="section__eyebrow section__eyebrow--ok rv">RESOLVED</div>
+      <div class="section__eyebrow section__eyebrow--ok rv">> RESOLVED</div>
       <h2 class="section__title rv" id="solution-title">결과물이 이력서를 대체합니다</h2>
       <p class="section__desc rv">Vibes는 포트폴리오 대신 실제 MVP 빌드 결과를 기준으로 매칭합니다.</p>
 
@@ -1577,9 +1728,15 @@
 </button>
 
 <script>
-/* ── Nav scroll ── */
+/* ── Nav scroll + Hero glow parallax ── */
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), { passive: true });
+const heroGlow = document.querySelector('.hero__glow');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 10);
+  if (heroGlow && scrollY < window.innerHeight) {
+    heroGlow.style.top = `${15 + (scrollY / window.innerHeight) * 10}%`;
+  }
+}, { passive: true });
 
 /* ── Reveal (stagger: 100ms per section) ── */
 const io = new IntersectionObserver(
@@ -1713,6 +1870,18 @@ const heroBoxObs = new IntersectionObserver(entries => {
   }
 }, { threshold: 0.3 });
 heroBoxObs.observe(document.getElementById('heroBox'));
+
+/* ── Timeline progress line ── */
+const timelineEl = document.querySelector('.timeline');
+if (timelineEl) {
+  const tlIo = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      timelineEl.classList.add('timeline--active');
+      tlIo.unobserve(timelineEl);
+    }
+  }, { threshold: 0.15 });
+  tlIo.observe(timelineEl);
+}
 
 /* ── Waitlist Counter ── */
 const countEl = document.getElementById('waitlistCount');
