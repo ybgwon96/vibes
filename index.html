@@ -62,12 +62,12 @@
 
     /* ── Layout ── */
     .wrap {
-      max-width: 740px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 40px;
     }
 
-    section { padding: 80px 0; }
+    section { padding: 60px 0; }
 
     /* ── Top Accent Line ── */
     body::before {
@@ -145,9 +145,9 @@
       border-bottom-color: var(--border);
     }
     .nav__inner {
-      max-width: 740px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -200,18 +200,18 @@
 
     /* ── Hero ── */
     .hero {
-      padding-top: 120px;
-      padding-bottom: 64px;
+      padding-top: 96px;
+      padding-bottom: 48px;
     }
     .hero__tag {
       font-size: 12px;
       color: var(--accent);
-      margin-bottom: 32px;
+      margin-bottom: 20px;
       letter-spacing: 0.5px;
     }
     .hero__title {
       font-family: var(--body);
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 800;
       color: var(--text-bright);
       line-height: 1.35;
@@ -223,9 +223,18 @@
       font-size: 15px;
       color: var(--text-secondary);
       line-height: 1.7;
-      margin-bottom: 48px;
-      max-width: 480px;
+      margin-bottom: 32px;
+      max-width: 640px;
     }
+
+    /* ── Hero Grid ── */
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero__grid .hero__sub { margin-bottom: 32px; }
 
     /* ── CLI Box ── */
     .cli-box {
@@ -235,7 +244,7 @@
       background: var(--bg-box);
       padding: 24px;
       position: relative;
-      margin-bottom: 40px;
+      margin-bottom: 28px;
     }
     .cli-box__title {
       position: absolute;
@@ -247,6 +256,39 @@
       color: var(--accent);
       letter-spacing: 0.3px;
     }
+    /* Terminal window variant */
+    .cli-box--terminal {
+      padding: 0;
+      margin-bottom: 0;
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(212,135,94,0.08);
+    }
+    .cli-box__bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .cli-box__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .cli-box__dot--red { background: #F07070; }
+    .cli-box__dot--yellow { background: #E0B050; }
+    .cli-box__dot--green { background: #4ADE80; }
+    .cli-box__bar-title {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.3px;
+      padding-right: 30px;
+    }
+    .cli-box__content { padding: 20px 24px; }
     .cli-box__line {
       white-space: pre-wrap;
       word-break: break-all;
@@ -331,8 +373,8 @@
       color: var(--text-secondary);
       font-family: var(--body);
       font-size: 14px;
-      margin-bottom: 40px;
-      max-width: 480px;
+      margin-bottom: 28px;
+      max-width: 640px;
     }
 
     .warn-item {
@@ -392,8 +434,8 @@
       color: var(--text-secondary);
       font-family: var(--body);
       font-size: 14px;
-      margin-bottom: 40px;
-      max-width: 480px;
+      margin-bottom: 28px;
+      max-width: 640px;
     }
 
     /* Diff */
@@ -771,7 +813,8 @@
     @media (max-width: 640px) {
       body { font-size: 13px; }
       section { padding: 64px 0; }
-      .hero { padding-top: 100px; padding-bottom: 48px; }
+      .hero { padding-top: 80px; padding-bottom: 36px; }
+      .hero__grid { grid-template-columns: 1fr; gap: 32px; }
       .hero__actions { flex-direction: column; }
       .btn { width: 100%; justify-content: center; }
       .cli-box { padding: 18px 16px; }
@@ -814,18 +857,25 @@
   <!-- Hero -->
   <section class="hero" id="hero">
     <div class="wrap">
-      <div class="hero__tag reveal">[EARLY ACCESS]</div>
-      <h1 class="hero__title reveal">포트폴리오 말고,<br><span style="color:var(--accent)">결과물</span>로 증명하세요.</h1>
-      <p class="hero__sub reveal">바이브 코딩 시대, 포트폴리오가 아닌 실제 MVP 결과물로 개발자와 클라이언트를 블라인드 매칭합니다.</p>
-
-      <div class="cli-box reveal" id="heroBox">
-        <span class="cli-box__title">vibes-cli</span>
-        <div id="heroTerminal"></div>
-      </div>
-
-      <div class="hero__actions reveal">
-        <a href="#waitlist" class="btn btn--accent">웨이트리스트 등록 →</a>
-        <a href="#how" class="btn btn--ghost">어떻게 작동하나요?</a>
+      <div class="hero__grid">
+        <div>
+          <div class="hero__tag reveal">[EARLY ACCESS]</div>
+          <h1 class="hero__title reveal">포트폴리오 말고,<br><span style="color:var(--accent)">결과물</span>로 증명하세요.</h1>
+          <p class="hero__sub reveal">바이브 코딩 시대, 포트폴리오가 아닌 실제 MVP 결과물로 개발자와 클라이언트를 블라인드 매칭합니다.</p>
+          <div class="hero__actions reveal">
+            <a href="#waitlist" class="btn btn--accent">웨이트리스트 등록 →</a>
+            <a href="#how" class="btn btn--ghost">어떻게 작동하나요?</a>
+          </div>
+        </div>
+        <div class="cli-box cli-box--terminal reveal" id="heroBox">
+          <div class="cli-box__bar">
+            <span class="cli-box__dot cli-box__dot--red"></span>
+            <span class="cli-box__dot cli-box__dot--yellow"></span>
+            <span class="cli-box__dot cli-box__dot--green"></span>
+            <span class="cli-box__bar-title">vibes-cli</span>
+          </div>
+          <div class="cli-box__content" id="heroTerminal"></div>
+        </div>
       </div>
     </div>
     <span class="sparkle" style="top:18%;left:6%">✦</span>
