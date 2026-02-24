@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Vibes — 블라인드 MVP 매칭</title>
   <meta name="description" content="포트폴리오 말고, 결과물로 증명하세요. 바이브 코딩 시대의 블라인드 MVP 매칭 플랫폼.">
   <meta property="og:type" content="website">
@@ -11,39 +11,64 @@
   <meta property="og:image" content="https://usevibes.app/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://usevibes.app">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Vibes — 블라인드 MVP 매칭">
+  <meta name="twitter:description" content="포트폴리오 말고, 결과물로 증명하세요.">
+  <meta name="twitter:image" content="https://usevibes.app/og.png">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://usevibes.app">
+  <meta name="theme-color" content="#060608">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23CF4436'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='700' font-size='20' fill='%23060608'%3EV%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="https://usevibes.app/og.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Vibes",
+    "url": "https://usevibes.app",
+    "logo": "https://usevibes.app/og.png",
+    "description": "바이브 코딩 시대의 블라인드 MVP 매칭 플랫폼",
+    "sameAs": [
+      "https://www.threads.net/@needsbuilder"
+    ]
+  }
+  </script>
 
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://script.google.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Serif+KR:wght@600;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #0A0A0A;
-      --bg-box: #0F0F0F;
-      --bg-hover: #141414;
-      --bg-input: #0A0A0A;
-      --border: #1E1E1E;
-      --border-bright: #2A2A2A;
-      --text: #C8C8C8;
-      --text-bright: #E8E8E8;
-      --text-secondary: #777;
-      --text-dim: #444;
-      --accent: #D4875E;
-      --accent-dim: rgba(212, 135, 94, 0.12);
-      --green: #4ADE80;
-      --green-dim: rgba(74, 222, 128, 0.10);
-      --red: #F07070;
-      --red-dim: rgba(240, 112, 112, 0.08);
-      --yellow: #E0B050;
-      --blue: #6BA5E8;
-      --purple: #A78BFA;
-      --purple-dim: rgba(167, 139, 250, 0.08);
-      --mono: 'JetBrains Mono', monospace;
+      --bg: #060608;
+      --surface: #0B0B10;
+      --surface-2: #101016;
+      --border: #18181F;
+      --border-bright: #252530;
+      --text: #9D9A94;
+      --text-bright: #EDE9E3;
+      --text-dim: #62626E;
+      --accent: #CF4436;
+      --accent-soft: rgba(207, 68, 54, 0.10);
+      --accent-glow: rgba(207, 68, 54, 0.20);
+      --green: #34D399;
+      --green-soft: rgba(52, 211, 153, 0.08);
+      --red: #E25555;
+      --red-soft: rgba(226, 85, 85, 0.08);
+      --serif: 'Instrument Serif', Georgia, serif;
+      --serif-kr: 'Noto Serif KR', serif;
       --body: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
-      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --mono: 'JetBrains Mono', monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.77, 0, 0.175, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -58,115 +83,113 @@
       overflow-x: hidden;
     }
 
+    /* ── Skip Link ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      z-index: 300;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0 0 4px 4px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ── Focus Visible ── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     ::selection {
       background: var(--accent);
       color: var(--bg);
     }
 
-    /* ── Noise Overlay ── */
+    /* ── Grain Overlay ── */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      opacity: 0.04;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-      background-size: 128px 128px;
+      opacity: 0.035;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
       pointer-events: none;
       z-index: 9999;
     }
 
-    /* ── Layout ── */
-    .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    /* ── Top Accent Line (orange → purple gradient) ── */
+    /* ── Top Accent Line ── */
     body::before {
       content: '';
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, #D4875E 0%, #E8A070 50%, #A78BFA 100%);
+      background: var(--accent);
       z-index: 200;
     }
 
-    /* ── Divider ── */
-    .divider {
-      border: none;
-      height: 1px;
-      background: var(--border);
-      margin: 0;
-      position: relative;
-    }
-    .divider::after {
-      content: '◆';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--bg);
-      padding: 0 12px;
-      font-size: 8px;
-      color: var(--accent);
-      letter-spacing: 4px;
-      font-family: var(--mono);
-    }
-    /* Gradient fade line variant */
-    .divider--fade {
-      background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
-    }
-    .divider--fade::after { display: none; }
-
-    /* ── Cursor Blink ── */
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-    .cursor {
-      animation: blink 1s step-end infinite;
-      color: var(--accent);
-      font-weight: 400;
+    /* ── Layout ── */
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 40px;
     }
 
-    /* ── Thinking Pulse ── */
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .thinking {
-      color: var(--accent);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    /* ── Reveal ── */
-    .reveal {
+    /* ── Reveal Animation ── */
+    .rv {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+      transform: translateY(32px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
     }
-    .reveal.visible {
+    .rv.vis {
       opacity: 1;
       transform: none;
     }
 
-    /* ── Nav (Glassmorphism) ── */
+    /* ── Redacted / Blind Effect ── */
+    .blind {
+      position: relative;
+      display: inline;
+    }
+    .blind::after {
+      content: '';
+      position: absolute;
+      top: 8%;
+      bottom: 8%;
+      left: -3px;
+      right: -3px;
+      background: var(--text-bright);
+      transition: transform 0.7s var(--ease-smooth);
+    }
+    .blind.revealed::after {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+
+    /* ── Nav ── */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(6, 6, 8, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
-    .nav.scrolled {
-      border-bottom-color: var(--border);
-    }
+    .nav.scrolled { border-bottom-color: var(--border); }
     .nav__inner {
-      max-width: 1200px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 40px;
       display: flex;
@@ -184,35 +207,36 @@
       width: 28px;
       height: 28px;
       background: var(--accent);
-      border-radius: 7px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 15px;
       font-weight: 700;
       color: var(--bg);
-      letter-spacing: -1px;
       font-family: var(--mono);
-      box-shadow: 0 0 16px var(--accent-dim), 0 0 0 1px rgba(212, 135, 94, 0.2);
     }
     .nav__logo-text {
-      font-size: 15px;
-      font-weight: 700;
+      font-family: var(--serif);
+      font-size: 18px;
+      font-style: italic;
       color: var(--text-bright);
       letter-spacing: -0.5px;
-      font-family: var(--mono);
     }
     .nav__cta {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--accent);
-      border: 1px solid rgba(212, 135, 94, 0.3);
+      border: 1px solid rgba(207, 68, 54, 0.3);
       background: transparent;
-      padding: 7px 16px;
-      border-radius: 6px;
+      padding: 10px 20px;
+      min-height: 44px;
+      border-radius: 4px;
       cursor: pointer;
       text-decoration: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       transition: all 0.2s;
     }
     .nav__cta:hover {
@@ -223,572 +247,532 @@
 
     /* ── Hero ── */
     .hero {
-      position: relative;
-      min-height: 90vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      padding-top: 56px;
+      justify-content: center;
+      text-align: center;
+      padding: 56px 0 0;
+      position: relative;
+      overflow: hidden;
     }
-
-    /* Hero Grid Background Pattern */
-    .hero__grid-bg {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Hero Ambient Glow (enhanced) */
     .hero__glow {
       position: absolute;
-      top: 0;
+      top: 15%;
       left: 50%;
       transform: translateX(-50%);
-      width: 900px;
-      height: 900px;
-      background: radial-gradient(circle, rgba(212,135,94,0.10) 0%, rgba(167,139,250,0.05) 40%, transparent 65%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 55%);
       pointer-events: none;
       z-index: 0;
+      filter: blur(80px);
     }
-
     .hero > .wrap {
       position: relative;
       z-index: 1;
-      width: 100%;
     }
-
     .hero__tag {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
+      font-weight: 500;
       color: var(--accent);
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero__tag::before,
+    .hero__tag::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
     }
     .hero__title {
-      font-family: var(--body);
-      font-size: clamp(2.2rem, 5.5vw, 3.5rem);
-      font-weight: 800;
+      font-family: var(--serif-kr);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
       color: var(--text-bright);
-      line-height: 1.35;
-      letter-spacing: -1.5px;
-      margin-bottom: 20px;
+      line-height: 1.2;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+    }
+    .hero__title-serif {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--accent);
     }
     .hero__title-accent {
-      background: linear-gradient(135deg, #D4875E, #E8A070, #A78BFA);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent);
+      position: relative;
     }
     .hero__sub {
       font-family: var(--body);
-      font-size: 16px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 32px;
-      max-width: 640px;
+      font-size: 17px;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
     }
-
-    /* Hero Grid Layout */
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1fr 480px;
-      gap: 48px;
-      align-items: center;
-    }
-
-    /* ── CLI Box ── */
-    .cli-box {
-      border: 1px solid var(--border);
-      border-top: 1px solid rgba(212, 135, 94, 0.25);
-      border-radius: 8px;
-      background: rgba(15, 15, 15, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 24px;
-      position: relative;
-      margin-bottom: 28px;
-    }
-    .cli-box__title {
-      position: absolute;
-      top: -9px;
-      left: 16px;
-      background: var(--bg-box);
-      padding: 0 8px;
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.3px;
-      font-family: var(--mono);
-    }
-    /* Terminal window variant */
-    .cli-box--terminal {
-      padding: 0;
-      margin-bottom: 0;
-      border-top: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow:
-        0 8px 32px rgba(0,0,0,0.4),
-        0 24px 64px rgba(0,0,0,0.2),
-        0 0 0 1px rgba(212,135,94,0.08),
-        0 0 60px rgba(212,135,94,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-    .cli-box__bar {
+    .hero__actions {
       display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    .cli-box__dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .cli-box__dot--red { background: #F07070; }
-    .cli-box__dot--yellow { background: #E0B050; }
-    .cli-box__dot--green { background: #4ADE80; }
-    .cli-box__bar-title {
-      flex: 1;
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.3px;
-      padding-right: 30px;
-      font-family: var(--mono);
-    }
-    .cli-box__content {
-      padding: 20px 24px;
-      font-family: var(--mono);
-      font-size: 14px;
-    }
-    .cli-box__line {
-      white-space: pre-wrap;
-      word-break: break-all;
-      min-height: 1.7em;
-      font-family: var(--mono);
-    }
-    .cli-box__prompt { color: var(--accent); font-weight: 600; }
-    .cli-box__cmd { color: var(--text-bright); }
-    .cli-box__dim { color: var(--text-secondary); }
-    .cli-box__label { color: var(--text-dim); display: inline-block; min-width: 48px; }
-    .cli-box__val { color: var(--text); }
-    .cli-box__arrow { color: var(--blue); }
-    .cli-box__ok { color: var(--green); }
-
-    .cli-progress {
-      font-size: 13px;
-      letter-spacing: -1px;
-      margin: 4px 0;
-    }
-    .cli-progress__fill { color: var(--accent); }
-    .cli-progress__empty { color: var(--border); }
-    .cli-progress__pct { color: var(--text-dim); letter-spacing: 0; margin-left: 8px; font-size: 12px; }
 
     /* ── Buttons ── */
     .btn {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      padding: 12px 28px;
-      border-radius: 6px;
+      padding: 14px 32px;
+      border-radius: 4px;
       border: 1px solid transparent;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: all 0.25s var(--ease);
     }
-    .btn--accent {
+    .btn--primary {
       background: var(--accent);
       color: var(--bg);
       border-color: var(--accent);
-      position: relative;
-      overflow: hidden;
     }
-    .btn--accent:hover {
-      background: #E09570;
-      border-color: #E09570;
-      transform: scale(1.03);
-      box-shadow: 0 0 20px var(--accent-dim);
-    }
-    .btn--accent::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-      animation: shine 4s ease-in-out infinite;
-    }
-    @keyframes shine {
-      0%, 70%, 100% { left: -100%; }
-      35% { left: 120%; }
+    .btn--primary:hover {
+      background: #D95548;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
     }
     .btn--ghost {
       background: transparent;
-      color: var(--text-secondary);
+      color: var(--text);
       border-color: var(--border-bright);
     }
     .btn--ghost:hover {
-      color: var(--text);
+      color: var(--text-bright);
       border-color: var(--text-dim);
-    }
-    .hero__actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      transform: translateY(-2px);
     }
 
-    /* ── Floating Particles (CSS only) ── */
-    .particles {
-      position: absolute;
-      inset: 0;
+    /* ── Marquee ── */
+    .marquee {
       overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
+      white-space: nowrap;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      position: relative;
     }
-    .particle {
+    .marquee::before,
+    .marquee::after {
+      content: '';
       position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .marquee::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--bg), transparent);
+    }
+    .marquee::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--bg), transparent);
+    }
+    .marquee__track {
+      display: inline-flex;
+      animation: scroll 40s linear infinite;
+    }
+    .marquee__item {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 0 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .marquee__item .dot {
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
       border-radius: 50%;
-      opacity: 0;
-      animation: particleFloat 8s ease-in-out infinite;
+      opacity: 0.5;
     }
-    .particle--1 {
-      width: 4px; height: 4px;
-      background: var(--accent);
-      top: 20%; left: 8%;
-      animation-delay: 0s;
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
-    .particle--2 {
-      width: 3px; height: 3px;
-      background: var(--purple);
-      top: 35%; right: 12%;
-      animation-delay: 1.5s;
+
+    /* ── Section Common ── */
+    .section { padding: 120px 0; }
+    .section__eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-    .particle--3 {
-      width: 5px; height: 5px;
-      background: var(--accent);
-      top: 60%; left: 4%;
-      animation-delay: 3s;
+    .section__eyebrow--error {
+      color: var(--red);
+      background: var(--red-soft);
+      padding: 4px 12px;
+      border-radius: 3px;
     }
-    .particle--4 {
-      width: 3px; height: 3px;
-      background: var(--purple);
-      top: 45%; right: 6%;
-      animation-delay: 4.5s;
+    .section__eyebrow--ok {
+      color: var(--green);
+      background: var(--green-soft);
+      padding: 4px 12px;
+      border-radius: 3px;
     }
-    .particle--5 {
-      width: 2px; height: 2px;
-      background: var(--accent);
-      top: 75%; right: 15%;
-      animation-delay: 6s;
+    .section__title {
+      font-family: var(--serif-kr);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -1px;
+      line-height: 1.3;
     }
-    .particle--6 {
-      width: 6px; height: 6px;
-      border: 1px solid rgba(212,135,94,0.3);
-      background: transparent;
-      top: 25%; right: 20%;
-      animation-delay: 2s;
+    .section__desc {
+      font-size: 16px;
+      color: var(--text);
+      max-width: 560px;
+      margin-top: 12px;
+      line-height: 1.8;
     }
-    .particle--7 {
-      width: 6px; height: 6px;
-      border: 1px solid rgba(167,139,250,0.25);
-      background: transparent;
-      top: 65%; left: 15%;
-      animation-delay: 5s;
-    }
-    @keyframes particleFloat {
-      0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
-      20% { opacity: 0.6; }
-      50% { opacity: 0.8; transform: translateY(-30px) scale(1); }
-      80% { opacity: 0.4; }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-bright) 50%, transparent);
+      margin: 0;
     }
 
     /* ── Problem ── */
-    .problem { padding: 100px 0 80px; }
-    .problem__head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
+    .problem__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 48px;
     }
-    .problem__head-icon {
+    .problem-card {
+      background: var(--surface);
+      padding: 32px 28px;
+      transition: background 0.3s, opacity 0.6s var(--ease), transform 0.6s var(--ease);
+      position: relative;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .problem-card.vis {
+      opacity: 1;
+      transform: none;
+    }
+    .problem-card:hover {
+      background: var(--surface-2);
+    }
+    .problem-card__code {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
       color: var(--red);
-      font-weight: 700;
-      font-size: 13px;
-      font-family: var(--mono);
-      background: var(--red-dim);
-      padding: 3px 10px;
-      border-radius: 4px;
-      text-shadow: 0 0 12px rgba(240,112,112,0.4);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      opacity: 0.7;
     }
-    .problem__title {
-      font-family: var(--body);
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
+    .problem-card__title {
+      font-family: var(--serif-kr);
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-bright);
-      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      line-height: 1.4;
     }
-    .problem__desc {
-      color: var(--text-secondary);
-      font-family: var(--body);
-      font-size: 15px;
-      margin-bottom: 28px;
-      max-width: 640px;
-    }
-
-    .warn-item {
-      border-left: 2px solid var(--border-bright);
-      padding: 16px 0 16px 20px;
-      margin-bottom: 4px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .warn-item:hover {
-      border-left-color: var(--accent);
-      box-shadow: -4px 0 16px -4px var(--accent-dim);
-    }
-    .warn-item__head {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-    .warn-item__tag {
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      font-family: var(--mono);
-    }
-    .warn-item__title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-bright);
-    }
-    .warn-item__body {
-      font-family: var(--body);
+    .problem-card__body {
       font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      padding-left: 2px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .problem-card__redacted {
+      display: inline-block;
+      background: var(--text-dim);
+      color: transparent;
+      padding: 0 4px;
+      border-radius: 2px;
+      font-size: 14px;
+      user-select: none;
+      transition: all 0.5s var(--ease);
+    }
+    .problem-card:hover .problem-card__redacted {
+      background: transparent;
+      color: var(--text);
     }
 
     /* ── Solution ── */
-    .solution { padding: 80px 0; }
-    .solution__head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .solution__head-icon {
-      color: var(--green);
-      font-weight: 700;
-      font-size: 13px;
-      font-family: var(--mono);
-      background: var(--green-dim);
-      padding: 3px 10px;
-      border-radius: 4px;
-    }
-    .solution__title {
-      font-family: var(--body);
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      font-weight: 700;
-      color: var(--text-bright);
-      letter-spacing: -0.5px;
-    }
-    .solution__desc {
-      color: var(--text-secondary);
-      font-family: var(--body);
-      font-size: 15px;
-      margin-bottom: 28px;
-      max-width: 640px;
+    .solution__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-top: 48px;
     }
 
     /* Diff */
     .diff {
       border: 1px solid var(--border);
       border-radius: 8px;
-      background: var(--bg-box);
+      background: var(--surface);
       overflow: hidden;
-      font-size: 13px;
       font-family: var(--mono);
-      line-height: 1.8;
-      margin-bottom: 32px;
+      font-size: 13px;
+      line-height: 2;
     }
-    .diff__title {
-      padding: 10px 20px;
-      font-size: 11px;
-      color: var(--accent);
+    .diff__header {
+      padding: 12px 20px;
       border-bottom: 1px solid var(--border);
-      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .diff__filename {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .diff__stamp {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 2px 8px;
+      border-radius: 2px;
+      opacity: 0.7;
     }
     .diff__body {
       padding: 8px 0;
-      counter-reset: diffline;
+      counter-reset: dl;
     }
     .diff__hunk {
       padding: 2px 20px;
       color: var(--text-dim);
-      font-size: 12px;
+      font-size: 11px;
+      letter-spacing: 0.5px;
     }
     .diff__line {
       padding: 1px 20px;
       opacity: 0;
-      transform: translateX(-12px);
-      transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
-      counter-increment: diffline;
+      transform: translateX(-8px);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+      counter-increment: dl;
     }
-    .diff__line.visible {
+    .diff__line.vis {
       opacity: 1;
       transform: none;
     }
     .diff__line::before {
-      content: counter(diffline);
+      content: counter(dl);
       display: inline-block;
-      width: 20px;
+      width: 18px;
       margin-right: 12px;
       text-align: right;
       color: var(--text-dim);
-      font-size: 11px;
+      font-size: 10px;
       opacity: 0.4;
     }
-    .diff__line--del {
-      background: var(--red-dim);
-      color: var(--red);
-    }
-    .diff__line--add {
-      background: var(--green-dim);
-      color: var(--green);
-    }
-    .diff__line--ctx {
-      color: var(--text-dim);
-    }
+    .diff__line--del { background: var(--red-soft); color: var(--red); }
+    .diff__line--add { background: var(--green-soft); color: var(--green); }
+    .diff__line--ctx { color: var(--text-dim); }
 
     /* Quote */
     .quote {
-      border-left: 2px solid;
-      border-image: linear-gradient(to bottom, var(--accent), var(--purple)) 1;
-      padding-left: 20px;
+      margin-top: 40px;
+    }
+    .quote__mark {
+      font-family: var(--serif);
+      font-size: 64px;
+      line-height: 0.5;
+      color: var(--accent);
+      opacity: 0.3;
+      margin-bottom: 8px;
     }
     .quote__text {
-      font-family: var(--body);
-      font-size: 15px;
-      color: var(--text-secondary);
+      font-family: var(--serif-kr);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-bright);
+      line-height: 1.8;
       font-style: italic;
-      line-height: 1.7;
     }
     .quote__cite {
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-top: 8px;
       font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 12px;
+      letter-spacing: 0.5px;
     }
 
-    /* ── How (--help) — Card Grid ── */
-    .how { padding: 100px 0 80px; }
-    .how__prompt {
-      font-size: 15px;
-      margin-bottom: 8px;
+    /* ── Terminal Box ── */
+    .terminal {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      overflow: hidden;
+      box-shadow:
+        0 12px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(207,68,54,0.05);
+    }
+    .terminal__bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+    }
+    .terminal__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .terminal__dot--r { background: var(--red); opacity: 0.7; }
+    .terminal__dot--y { background: #E0B050; opacity: 0.7; }
+    .terminal__dot--g { background: var(--green); opacity: 0.7; }
+    .terminal__bar-title {
+      flex: 1;
+      text-align: center;
       font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.3px;
+      padding-right: 30px;
+    }
+    .terminal__content {
+      padding: 20px 24px;
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+    .t-line { white-space: pre-wrap; word-break: break-all; min-height: 1.7em; font-family: var(--mono); }
+    .t-prompt { color: var(--accent); font-weight: 600; }
+    .t-cmd { color: var(--text-bright); }
+    .t-dim { color: var(--text); }
+    .t-muted { color: var(--text-dim); }
+    .t-label { color: var(--text-dim); display: inline-block; min-width: 48px; }
+    .t-val { color: var(--text); }
+    .t-arrow { color: var(--accent); }
+    .t-ok { color: var(--green); }
+    .t-cursor { animation: blink 1s step-end infinite; color: var(--accent); }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .t-thinking { animation: pulse 2s ease-in-out infinite; color: var(--accent); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .t-bar-fill { color: var(--accent); }
+    .t-bar-empty { color: var(--border); }
+    .t-bar-pct { color: var(--text-dim); letter-spacing: 0; margin-left: 8px; font-size: 12px; }
+
+    /* ── How (Timeline) ── */
+    .how { padding: 120px 0; }
+    .how__prompt {
+      font-family: var(--mono);
+      font-size: 14px;
+      margin-bottom: 8px;
     }
     .how__prompt-char { color: var(--accent); font-weight: 600; }
     .how__prompt-cmd { color: var(--text-bright); }
     .how__tagline {
-      color: var(--text-secondary);
-      font-family: var(--body);
-      font-size: 15px;
-      margin-bottom: 48px;
+      color: var(--text);
+      font-size: 16px;
+      margin-bottom: 56px;
     }
-
-    .how__cards {
+    .timeline {
+      position: relative;
+      max-width: 720px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 20px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--border) 40%, var(--border));
+    }
+    .timeline__step {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      grid-template-columns: 40px 1fr;
+      gap: 24px;
+      padding-bottom: 48px;
       position: relative;
     }
-
-    .how-card {
-      position: relative;
-      background: rgba(15, 15, 15, 0.6);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 24px;
-      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo), border-color 0.3s;
-    }
-    .how-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212, 135, 94, 0.2);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 40px rgba(212,135,94,0.05);
-    }
-    .how-card__number {
-      display: inline-flex;
+    .timeline__step:last-child { padding-bottom: 0; }
+    .timeline__marker {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-bright);
+      background: var(--surface);
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--accent-dim);
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .how-card__icon {
-      font-size: 24px;
-      margin-bottom: 12px;
-      display: block;
-    }
-    .how-card__name {
       font-family: var(--mono);
       font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dim);
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s var(--ease);
+    }
+    .timeline__step:hover .timeline__marker {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-soft);
+    }
+    .timeline__body {
+      padding-top: 8px;
+    }
+    .timeline__name {
+      font-family: var(--mono);
+      font-size: 11px;
       font-weight: 600;
       color: var(--accent);
-      margin-bottom: 8px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
-    .how-card__title {
-      font-size: 16px;
-      font-weight: 600;
+    .timeline__title {
+      font-family: var(--serif-kr);
+      font-size: 20px;
+      font-weight: 700;
       color: var(--text-bright);
       margin-bottom: 8px;
     }
-    .how-card__desc {
-      font-family: var(--body);
+    .timeline__desc {
       font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Connection arrows between cards */
-    .how__cards::before,
-    .how__cards::after {
-      display: none;
-    }
-    .how-card__arrow {
-      display: none;
-      position: absolute;
-      right: -14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-dim);
-      font-size: 14px;
-      z-index: 2;
-      font-family: var(--mono);
-    }
-    .how-card:not(:last-child) .how-card__arrow {
-      display: block;
+      color: var(--text);
+      line-height: 1.7;
+      max-width: 480px;
     }
 
     /* ── Waitlist ── */
@@ -797,62 +781,52 @@
       padding: 120px 0 100px;
       position: relative;
     }
-    /* Waitlist background glow */
-    .waitlist::before {
-      content: '';
+    .waitlist__glow {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(212,135,94,0.06) 0%, rgba(167,139,250,0.03) 50%, transparent 70%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 60%);
       pointer-events: none;
+      filter: blur(40px);
     }
     .waitlist > .wrap { position: relative; z-index: 1; }
-
     .waitlist__title {
-      font-family: var(--body);
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-family: var(--serif-kr);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
       font-weight: 700;
       color: var(--text-bright);
-      letter-spacing: -0.5px;
+      letter-spacing: -1px;
       margin-bottom: 8px;
     }
     .waitlist__sub {
-      color: var(--text-secondary);
-      font-family: var(--body);
-      font-size: 15px;
+      color: var(--text);
+      font-size: 16px;
       margin-bottom: 16px;
     }
-
-    /* Waitlist Counter */
     .waitlist__counter {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 12px;
       color: var(--accent);
-      margin-bottom: 32px;
-      letter-spacing: 0.3px;
+      margin-bottom: 36px;
+      letter-spacing: 0.5px;
     }
-    .waitlist__counter-num {
-      font-weight: 700;
-    }
-
-    /* Early Access Benefits */
+    .waitlist__counter-num { font-weight: 700; }
     .waitlist__benefits {
       display: flex;
       justify-content: center;
       gap: 32px;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
       flex-wrap: wrap;
     }
     .waitlist__benefit {
-      font-family: var(--body);
       font-size: 14px;
-      color: var(--text-secondary);
+      color: var(--text);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .waitlist__benefit-icon {
       color: var(--green);
@@ -861,17 +835,34 @@
     }
 
     .waitlist__box {
-      max-width: 440px;
+      max-width: 420px;
       margin: 0 auto;
       text-align: left;
+    }
+    .waitlist__form-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 28px;
+      position: relative;
+    }
+    .waitlist__form-label {
+      position: absolute;
+      top: -8px;
+      left: 16px;
+      background: var(--surface);
+      padding: 0 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.5px;
     }
 
     /* Toggle */
     .toggle {
       display: flex;
-      gap: 0;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 4px;
       overflow: hidden;
       margin-bottom: 24px;
     }
@@ -879,23 +870,24 @@
       flex: 1;
       padding: 10px 0;
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--text-dim);
       background: transparent;
       border: none;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      letter-spacing: 0.2px;
+      transition: all 0.3s var(--ease);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
     .toggle__btn:first-child { border-right: 1px solid var(--border); }
     .toggle__btn.active[data-role="developer"] {
-      background: var(--accent-dim);
+      background: var(--accent-soft);
       color: var(--accent);
     }
     .toggle__btn.active[data-role="client"] {
-      background: var(--purple-dim);
-      color: var(--purple);
+      background: var(--green-soft);
+      color: var(--green);
     }
 
     /* Form */
@@ -903,99 +895,86 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .form-label {
-      font-size: 12px;
+      font-size: 11px;
       font-family: var(--mono);
       color: var(--text-dim);
       width: 48px;
       flex-shrink: 0;
       text-align: right;
+      letter-spacing: 0.3px;
     }
-    .form-label .req { color: var(--red); }
+    .form-label .req { color: var(--accent); }
     .form-input {
       flex: 1;
       font-family: var(--mono);
       font-size: 13px;
-      color: var(--text);
-      background: var(--bg-input);
+      color: var(--text-bright);
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 5px;
+      border-radius: 4px;
       padding: 10px 14px;
       outline: none;
       transition: border-color 0.2s;
     }
     .form-input::placeholder { color: var(--text-dim); }
     .form-input:focus { border-color: var(--accent); }
-    .form-input.focus--purple:focus { border-color: var(--purple); }
+    .form-input.focus--green:focus { border-color: var(--green); }
     .form-error {
-      font-size: 12px;
+      font-size: 11px;
       font-family: var(--mono);
       color: var(--red);
-      margin: -8px 0 12px 60px;
+      margin: -6px 0 10px 60px;
       display: none;
     }
-
     .form-submit {
       width: 100%;
       margin-top: 8px;
       padding: 14px;
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       border: none;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       transition: all 0.2s;
     }
     .form-submit--dev {
       background: var(--accent);
       color: var(--bg);
-      box-shadow: 0 0 20px rgba(212,135,94,0.15);
     }
-    .form-submit--dev:hover {
-      background: #E09570;
-      box-shadow: 0 0 30px rgba(212,135,94,0.25);
-    }
+    .form-submit--dev:hover { background: #D95548; box-shadow: 0 4px 16px var(--accent-glow); }
     .form-submit--client {
-      background: var(--purple);
+      background: var(--green);
       color: var(--bg);
-      box-shadow: 0 0 20px rgba(167,139,250,0.15);
     }
-    .form-submit--client:hover {
-      background: #B89DFC;
-      box-shadow: 0 0 30px rgba(167,139,250,0.25);
-    }
-    .form-submit:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    .form-submit--client:hover { background: #3FE0A6; box-shadow: 0 4px 16px var(--green-soft); }
+    .form-submit:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 
-    /* Result */
     .form-result {
       display: none;
       padding: 40px 20px;
       text-align: center;
     }
     .form-result__text {
-      font-size: 15px;
       font-family: var(--mono);
+      font-size: 15px;
       color: var(--green);
       min-height: 1.5em;
     }
     .form-result__sub {
-      font-family: var(--body);
       font-size: 13px;
-      color: var(--text-secondary);
+      color: var(--text);
       margin-top: 12px;
     }
 
-    /* ── Footer (3-column) ── */
+    /* ── Footer ── */
     .footer {
-      border-top: 1px solid transparent;
-      border-image: linear-gradient(90deg, transparent, var(--border-bright), transparent) 1;
+      border-top: 1px solid var(--border);
     }
     .footer__main {
       display: grid;
@@ -1014,7 +993,7 @@
       width: 24px;
       height: 24px;
       background: var(--accent);
-      border-radius: 6px;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1024,23 +1003,23 @@
       font-family: var(--mono);
     }
     .footer__brand-name {
-      font-family: var(--mono);
-      font-size: 14px;
-      font-weight: 700;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 16px;
       color: var(--text-bright);
     }
     .footer__brand-desc {
       font-size: 13px;
       color: var(--text-dim);
-      line-height: 1.6;
-      max-width: 280px;
+      line-height: 1.7;
+      max-width: 260px;
     }
     .footer__col-title {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--text-dim);
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-bottom: 16px;
     }
@@ -1052,22 +1031,35 @@
     }
     .footer__col-links a {
       font-size: 13px;
-      color: var(--text-secondary);
+      color: var(--text);
       text-decoration: none;
       transition: color 0.2s;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      position: relative;
     }
-    .footer__col-links a:hover { color: var(--purple); }
+    .footer__col-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--text-bright);
+      transition: width 0.3s var(--ease);
+    }
+    .footer__col-links a:hover { color: var(--text-bright); }
+    .footer__col-links a:hover::after { width: 100%; }
     .footer__soon {
       font-family: var(--mono);
-      font-size: 9px;
+      font-size: 8px;
+      font-weight: 600;
       color: var(--text-dim);
       background: rgba(255,255,255,0.04);
       padding: 2px 6px;
-      border-radius: 3px;
-      letter-spacing: 0.5px;
+      border-radius: 2px;
+      letter-spacing: 1px;
     }
     .footer__bottom {
       display: flex;
@@ -1075,7 +1067,8 @@
       justify-content: space-between;
       padding: 20px 0;
       border-top: 1px solid var(--border);
-      font-size: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
       color: var(--text-dim);
     }
     .footer__bottom-links {
@@ -1085,71 +1078,94 @@
     .footer__bottom-links a {
       color: var(--text-dim);
       text-decoration: none;
-      font-size: 12px;
+      font-size: 11px;
       transition: color 0.2s;
     }
-    .footer__bottom-links a:hover { color: var(--text-secondary); }
+    .footer__bottom-links a:hover { color: var(--text); }
 
-    /* ── Logo Pulse ── */
-    .nav__logo-mark { animation: logoPulse 3s ease-in-out infinite; }
-    @keyframes logoPulse {
-      0%, 100% { box-shadow: 0 0 16px var(--accent-dim), 0 0 0 1px rgba(212,135,94,0.2); }
-      50% { box-shadow: 0 0 24px var(--accent-dim), 0 0 0 1px rgba(212,135,94,0.35); }
+    /* ── BGM Toggle ── */
+    .bgm-toggle {
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      right: calc(24px + env(safe-area-inset-right));
+      z-index: 150;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-bright);
+      background: rgba(11, 11, 16, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--ease);
+      color: var(--text-dim);
+      padding: 0;
+    }
+    .bgm-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .bgm-toggle.playing {
+      border-color: rgba(207, 68, 54, 0.3);
+      color: var(--accent);
+    }
+    .bgm-bars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 14px;
+    }
+    .bgm-bar {
+      width: 2px;
+      background: currentColor;
+      border-radius: 1px;
+      transition: height 0.1s;
+    }
+    .bgm-toggle:not(.playing) .bgm-bar { height: 2px !important; }
+    .bgm-toggle.playing .bgm-bar { animation: bgmB 0.8s ease-in-out infinite alternate; }
+    .bgm-toggle.playing .bgm-bar:nth-child(1) { animation-delay: 0s; }
+    .bgm-toggle.playing .bgm-bar:nth-child(2) { animation-delay: 0.15s; }
+    .bgm-toggle.playing .bgm-bar:nth-child(3) { animation-delay: 0.3s; }
+    .bgm-toggle.playing .bgm-bar:nth-child(4) { animation-delay: 0.45s; }
+    @keyframes bgmB {
+      0% { height: 3px; }
+      100% { height: 12px; }
     }
 
-    /* ── Divider Pulse ── */
-    .divider::after { animation: diamondPulse 3s ease-in-out infinite; }
-    @keyframes diamondPulse {
-      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
-    }
-
-    /* ── Responsive: 1024px ── */
+    /* ── Responsive ── */
     @media (max-width: 1024px) {
-      .hero__grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
       .wrap { padding: 0 32px; }
-      .how__cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .how-card:not(:last-child) .how-card__arrow { display: none; }
+      .problem__grid { grid-template-columns: 1fr; }
+      .solution__layout { grid-template-columns: 1fr; gap: 40px; }
       .footer__main { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
 
-    /* ── Responsive: 768px ── */
     @media (max-width: 768px) {
-      .hero__title { font-size: clamp(1.8rem, 5vw, 2.5rem); }
-      .problem__title, .solution__title, .waitlist__title {
-        font-size: clamp(1.3rem, 3.5vw, 1.8rem);
-      }
-      .problem, .how { padding: 80px 0 60px; }
-      .solution { padding: 60px 0; }
+      .hero__title { font-size: clamp(2rem, 6vw, 3rem); letter-spacing: -1px; }
+      .section { padding: 80px 0; }
+      .how { padding: 80px 0; }
       .waitlist { padding: 80px 0 60px; }
+      .waitlist__benefits { flex-direction: column; align-items: center; gap: 10px; }
       .footer__main { grid-template-columns: 1fr; gap: 32px; }
-      .waitlist__benefits { flex-direction: column; align-items: center; gap: 12px; }
     }
 
-    /* ── Responsive: 640px ── */
     @media (max-width: 640px) {
       body { font-size: 14px; }
-      .hero { min-height: auto; padding-top: 80px; padding-bottom: 36px; }
-      .hero__grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero { min-height: auto; padding: 100px 0 60px; }
       .hero__actions { flex-direction: column; }
       .btn { width: 100%; justify-content: center; min-height: 44px; }
-      .cli-box { padding: 18px 16px; }
-      .diff__line, .diff__hunk, .diff__title { padding-left: 14px; padding-right: 14px; }
-      .how__cards { grid-template-columns: 1fr; }
-      .how-card:not(:last-child) .how-card__arrow { display: none; }
       .form-group { flex-direction: column; align-items: stretch; gap: 6px; }
       .form-label { width: auto; text-align: left; }
       .form-error { margin-left: 0; }
-      .toggle__btn { min-height: 44px; }
-      .form-input { min-height: 44px; }
-      .form-submit { min-height: 44px; }
+      .toggle__btn, .form-input, .form-submit { min-height: 44px; }
       .footer__bottom { flex-direction: column; gap: 12px; text-align: center; }
-      .particle:nth-child(n+5) { display: none; }
+      .marquee__item { padding: 0 20px; font-size: 10px; }
+      .timeline::before { left: 16px; }
+      .timeline__step { grid-template-columns: 32px 1fr; gap: 16px; }
+      .timeline__marker { width: 32px; height: 32px; font-size: 11px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1157,122 +1173,83 @@
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
       }
-      .reveal { opacity: 1; transform: none; }
+      .rv { opacity: 1; transform: none; }
       .diff__line { opacity: 1; transform: none; }
-      .particle { display: none; }
+      .blind::after { display: none; }
     }
-
-    /* ── BGM Toggle ── */
-    .bgm-toggle {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 150;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 1px solid var(--border-bright);
-      background: rgba(15, 15, 15, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s var(--ease-out-expo);
-      color: var(--text-dim);
-      font-size: 18px;
-      padding: 0;
-    }
-    .bgm-toggle:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 20px rgba(212,135,94,0.1);
-    }
-    .bgm-toggle.playing {
-      border-color: rgba(212, 135, 94, 0.4);
-      color: var(--accent);
-    }
-    /* Sound wave bars animation */
-    .bgm-bars {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      height: 16px;
-    }
-    .bgm-bar {
-      width: 3px;
-      background: currentColor;
-      border-radius: 1px;
-      transition: height 0.1s;
-    }
-    .bgm-toggle:not(.playing) .bgm-bar {
-      height: 3px !important;
-    }
-    .bgm-toggle.playing .bgm-bar {
-      animation: bgmBounce 0.8s ease-in-out infinite alternate;
-    }
-    .bgm-toggle.playing .bgm-bar:nth-child(1) { animation-delay: 0s; }
-    .bgm-toggle.playing .bgm-bar:nth-child(2) { animation-delay: 0.15s; }
-    .bgm-toggle.playing .bgm-bar:nth-child(3) { animation-delay: 0.3s; }
-    .bgm-toggle.playing .bgm-bar:nth-child(4) { animation-delay: 0.45s; }
-    @keyframes bgmBounce {
-      0% { height: 4px; }
-      100% { height: 14px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .bgm-toggle.playing .bgm-bar { animation: none; height: 8px !important; }
-    }
-
   </style>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">본문 바로가기</a>
+
 <!-- Nav -->
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="메인 내비게이션">
   <div class="nav__inner">
     <a href="#" class="nav__logo">
-      <span class="nav__logo-mark">❯</span>
+      <span class="nav__logo-mark">V</span>
       <span class="nav__logo-text">vibes</span>
     </a>
-    <a href="#waitlist" class="nav__cta">웨이트리스트 등록</a>
+    <a href="#waitlist" class="nav__cta">Waitlist</a>
   </div>
 </nav>
 
-<main>
+<main id="main-content">
 
   <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero__grid-bg"></div>
-    <div class="hero__glow" id="heroGlow"></div>
-    <div class="particles">
-      <div class="particle particle--1"></div>
-      <div class="particle particle--2"></div>
-      <div class="particle particle--3"></div>
-      <div class="particle particle--4"></div>
-      <div class="particle particle--5"></div>
-      <div class="particle particle--6"></div>
-      <div class="particle particle--7"></div>
-    </div>
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <div class="hero__glow"></div>
     <div class="wrap">
-      <div class="hero__grid">
-        <div>
-          <div class="hero__tag reveal">[EARLY ACCESS]</div>
-          <h1 class="hero__title reveal">포트폴리오 말고,<br><span class="hero__title-accent">결과물</span>로 증명하세요.</h1>
-          <p class="hero__sub reveal">바이브 코딩 시대, 포트폴리오가 아닌 실제 MVP 결과물로 개발자와 클라이언트를 블라인드 매칭합니다.</p>
-          <div class="hero__actions reveal">
-            <a href="#waitlist" class="btn btn--accent">웨이트리스트 등록 →</a>
-            <a href="#how" class="btn btn--ghost">어떻게 작동하나요?</a>
-          </div>
+      <div class="hero__tag rv">Early Access</div>
+      <h1 class="hero__title rv" id="hero-title">포트폴리오 말고,<br><span class="hero__title-accent">결과물</span>로 증명하세요.</h1>
+      <p class="hero__sub rv">바이브 코딩 시대, 포트폴리오가 아닌 실제 MVP 결과물로<br>개발자와 클라이언트를 <span class="blind" id="blindHero">블라인드</span> 매칭합니다.</p>
+      <div class="hero__actions rv">
+        <a href="#waitlist" class="btn btn--primary">웨이트리스트 등록</a>
+        <a href="#how" class="btn btn--ghost">어떻게 작동하나요?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__item">Blind Matching <span class="dot"></span></span>
+      <span class="marquee__item">Results Only <span class="dot"></span></span>
+      <span class="marquee__item">No Portfolio <span class="dot"></span></span>
+      <span class="marquee__item">MVP Build <span class="dot"></span></span>
+      <span class="marquee__item">Vibe Coding <span class="dot"></span></span>
+      <span class="marquee__item">Prove Yourself <span class="dot"></span></span>
+      <span class="marquee__item">Blind Matching <span class="dot"></span></span>
+      <span class="marquee__item">Results Only <span class="dot"></span></span>
+      <span class="marquee__item">No Portfolio <span class="dot"></span></span>
+      <span class="marquee__item">MVP Build <span class="dot"></span></span>
+      <span class="marquee__item">Vibe Coding <span class="dot"></span></span>
+      <span class="marquee__item">Prove Yourself <span class="dot"></span></span>
+    </div>
+  </div>
+
+  <!-- Problem -->
+  <section class="section" id="problem" aria-labelledby="problem-title">
+    <div class="wrap">
+      <div class="section__eyebrow section__eyebrow--error rv">ERROR</div>
+      <h2 class="section__title rv" id="problem-title">외주 시장은 고장났습니다</h2>
+      <p class="section__desc rv">포트폴리오와 영업력이 실력을 대체하는 시장. 실력 있는 개발자는 묻히고, 클라이언트는 진짜를 찾지 못합니다.</p>
+
+      <div class="problem__grid rv">
+        <div class="problem-card">
+          <div class="problem-card__code">ERR_001</div>
+          <div class="problem-card__title">포트폴리오 과잉 포장</div>
+          <p class="problem-card__body">화려한 Figma 목업, 부풀린 이력서. 실제 코드 퀄리티는 <span class="problem-card__redacted">배포 후에야</span> 드러납니다.</p>
         </div>
-        <div class="cli-box cli-box--terminal reveal" id="heroBox">
-          <div class="cli-box__bar">
-            <span class="cli-box__dot cli-box__dot--red"></span>
-            <span class="cli-box__dot cli-box__dot--yellow"></span>
-            <span class="cli-box__dot cli-box__dot--green"></span>
-            <span class="cli-box__bar-title">vibes-cli</span>
-          </div>
-          <div class="cli-box__content" id="heroTerminal"></div>
+        <div class="problem-card">
+          <div class="problem-card__code">ERR_002</div>
+          <div class="problem-card__title">바이브 코딩 시대</div>
+          <p class="problem-card__body">AI가 코드를 쓰는 시대. 진짜 실력은 <span class="problem-card__redacted">무엇을 만드느냐</span>로 결정됩니다.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card__code">ERR_003</div>
+          <div class="problem-card__title">영업력 > 실력</div>
+          <p class="problem-card__body">말 잘하는 에이전시가 일감을 독점합니다. <span class="problem-card__redacted">조용한 실력자</span>는 기회조차 얻지 못합니다.</p>
         </div>
       </div>
     </div>
@@ -1280,69 +1257,50 @@
 
   <hr class="divider">
 
-  <!-- Problem -->
-  <section class="problem" id="problem">
-    <div class="wrap">
-      <div class="problem__head reveal">
-        <span class="problem__head-icon">✗ ERROR</span>
-      </div>
-      <h2 class="problem__title reveal">외주 시장은 고장났습니다</h2>
-      <p class="problem__desc reveal">포트폴리오와 영업력이 실력을 대체하는 시장. 클라이언트는 진짜 실력자를 찾기 어렵고, 실력 있는 개발자는 묻힙니다.</p>
-
-      <div class="warn-item reveal">
-        <div class="warn-item__head">
-          <span class="warn-item__tag">▸ WARN</span>
-          <span class="warn-item__title">포트폴리오 과잉 포장</span>
-        </div>
-        <p class="warn-item__body">화려한 Figma 목업, 부풀린 이력서. 실제 코드 퀄리티는 배포 후에야 드러납니다.</p>
-      </div>
-      <div class="warn-item reveal">
-        <div class="warn-item__head">
-          <span class="warn-item__tag">▸ WARN</span>
-          <span class="warn-item__title">바이브 코딩 시대</span>
-        </div>
-        <p class="warn-item__body">AI가 코드를 쓰는 시대. 진짜 실력은 무엇을 만드느냐, 어떤 결과를 내느냐로 결정됩니다.</p>
-      </div>
-      <div class="warn-item reveal">
-        <div class="warn-item__head">
-          <span class="warn-item__tag">▸ WARN</span>
-          <span class="warn-item__title">영업력 > 실력</span>
-        </div>
-        <p class="warn-item__body">말 잘하는 에이전시가 일감을 독점합니다. 조용한 실력자는 기회조차 얻지 못합니다.</p>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider--fade divider">
-
   <!-- Solution -->
-  <section class="solution" id="solution">
+  <section class="section" id="solution" aria-labelledby="solution-title">
     <div class="wrap">
-      <div class="solution__head reveal">
-        <span class="solution__head-icon">✓ OK</span>
-      </div>
-      <h2 class="solution__title reveal">결과물이 이력서를 대체합니다</h2>
-      <p class="solution__desc reveal">Vibes는 포트폴리오 대신 실제 MVP 빌드 결과를 기준으로 매칭합니다.</p>
+      <div class="section__eyebrow section__eyebrow--ok rv">RESOLVED</div>
+      <h2 class="section__title rv" id="solution-title">결과물이 이력서를 대체합니다</h2>
+      <p class="section__desc rv">Vibes는 포트폴리오 대신 실제 MVP 빌드 결과를 기준으로 매칭합니다.</p>
 
-      <div class="diff reveal" id="diffBlock">
-        <div class="diff__title">matching-engine.diff</div>
-        <div class="diff__body" id="diffBody">
-          <div class="diff__hunk">@@ 기존 외주 매칭 @@</div>
-          <div class="diff__line diff__line--del">- 화려한 포트폴리오로 클라이언트 현혹</div>
-          <div class="diff__line diff__line--del">- 에이전시 영업력이 프로젝트 수주 좌우</div>
-          <div class="diff__line diff__line--del">- 배포 후에야 실력 검증 (이미 늦음)</div>
-          <div class="diff__line diff__line--ctx">&nbsp;</div>
-          <div class="diff__hunk">@@ Vibes 매칭 @@</div>
-          <div class="diff__line diff__line--add">+ 동일 과제를 블라인드로 빌드</div>
-          <div class="diff__line diff__line--add">+ 실제 MVP 결과물만으로 실력 검증</div>
-          <div class="diff__line diff__line--add">+ 클라이언트가 결과물 보고 직접 선택</div>
-          <div class="diff__line diff__line--add">+ 매칭 후에도 마일스톤 기반 검증</div>
+      <div class="solution__layout">
+        <div class="diff rv" id="diffBlock">
+          <div class="diff__header">
+            <span class="diff__filename">matching-engine.diff</span>
+            <span class="diff__stamp">Declassified</span>
+          </div>
+          <div class="diff__body" id="diffBody">
+            <div class="diff__hunk">@@ 기존 외주 매칭 @@</div>
+            <div class="diff__line diff__line--del">- 화려한 포트폴리오로 클라이언트 현혹</div>
+            <div class="diff__line diff__line--del">- 에이전시 영업력이 프로젝트 수주 좌우</div>
+            <div class="diff__line diff__line--del">- 배포 후에야 실력 검증 (이미 늦음)</div>
+            <div class="diff__line diff__line--ctx">&nbsp;</div>
+            <div class="diff__hunk">@@ Vibes 매칭 @@</div>
+            <div class="diff__line diff__line--add">+ 동일 과제를 블라인드로 빌드</div>
+            <div class="diff__line diff__line--add">+ 실제 MVP 결과물만으로 실력 검증</div>
+            <div class="diff__line diff__line--add">+ 클라이언트가 결과물 보고 직접 선택</div>
+            <div class="diff__line diff__line--add">+ 매칭 후에도 마일스톤 기반 검증</div>
+          </div>
         </div>
-      </div>
 
-      <div class="quote reveal">
-        <p class="quote__text">"개발자는 인간 AI처럼 일합니다. 프롬프트(요구사항)를 받고, 결과물을 내놓죠."</p>
-        <p class="quote__cite">— Vibes의 매칭 철학</p>
+        <div>
+          <div class="terminal rv" id="heroBox">
+            <div class="terminal__bar">
+              <span class="terminal__dot terminal__dot--r"></span>
+              <span class="terminal__dot terminal__dot--y"></span>
+              <span class="terminal__dot terminal__dot--g"></span>
+              <span class="terminal__bar-title">vibes-cli</span>
+            </div>
+            <div class="terminal__content" id="heroTerminal"></div>
+          </div>
+
+          <div class="quote rv">
+            <div class="quote__mark">"</div>
+            <p class="quote__text">개발자는 인간 AI처럼 일합니다.<br>프롬프트를 받고, 결과물을 내놓죠.</p>
+            <p class="quote__cite">— Vibes의 매칭 철학</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1350,85 +1308,78 @@
   <hr class="divider">
 
   <!-- How it Works -->
-  <section class="how" id="how">
+  <section class="how" id="how" aria-labelledby="how-title">
     <div class="wrap">
-      <div class="how__prompt reveal">
-        <span class="how__prompt-char">❯ </span><span class="how__prompt-cmd">vibes --help</span>
+      <div class="how__prompt rv">
+        <span class="how__prompt-char">$ </span><span class="how__prompt-cmd">vibes --help</span>
       </div>
-      <p class="how__tagline reveal">4단계로 완성되는 블라인드 MVP 매칭</p>
+      <p class="how__tagline rv" id="how-title">4단계로 완성되는 블라인드 MVP 매칭</p>
 
-      <div class="how__cards">
-        <div class="how-card reveal">
-          <div class="how-card__number">1</div>
-          <span class="how-card__arrow">→</span>
-          <div class="how-card__icon">📋</div>
-          <div class="how-card__name">init</div>
-          <div class="how-card__title">요구사항 등록</div>
-          <p class="how-card__desc">클라이언트가 원하는 MVP의 핵심 기능과 기술 스택을 등록합니다. 예산과 일정도 함께 설정합니다.</p>
+      <div class="timeline">
+        <div class="timeline__step rv">
+          <div class="timeline__marker">01</div>
+          <div class="timeline__body">
+            <div class="timeline__name">init</div>
+            <div class="timeline__title">요구사항 등록</div>
+            <p class="timeline__desc">클라이언트가 원하는 MVP의 핵심 기능과 기술 스택을 등록합니다. 예산과 일정도 함께 설정합니다.</p>
+          </div>
         </div>
-        <div class="how-card reveal">
-          <div class="how-card__number">2</div>
-          <span class="how-card__arrow">→</span>
-          <div class="how-card__icon">🔒</div>
-          <div class="how-card__name">match</div>
-          <div class="how-card__title">블라인드 빌드 과제</div>
-          <p class="how-card__desc">매칭된 개발자들이 동일한 미니 과제를 블라인드로 수행합니다. 이름, 경력, 포트폴리오 — 모두 비공개.</p>
+        <div class="timeline__step rv">
+          <div class="timeline__marker">02</div>
+          <div class="timeline__body">
+            <div class="timeline__name">match</div>
+            <div class="timeline__title">블라인드 빌드 과제</div>
+            <p class="timeline__desc">매칭된 개발자들이 동일한 미니 과제를 블라인드로 수행합니다. 이름, 경력, 포트폴리오 — 모두 비공개.</p>
+          </div>
         </div>
-        <div class="how-card reveal">
-          <div class="how-card__number">3</div>
-          <span class="how-card__arrow">→</span>
-          <div class="how-card__icon">⚡</div>
-          <div class="how-card__name">build</div>
-          <div class="how-card__title">결과물 평가</div>
-          <p class="how-card__desc">클라이언트가 블라인드 결과물을 비교 평가합니다. 코드 품질, 완성도, 속도 — 결과물이 전부입니다.</p>
+        <div class="timeline__step rv">
+          <div class="timeline__marker">03</div>
+          <div class="timeline__body">
+            <div class="timeline__name">build</div>
+            <div class="timeline__title">결과물 평가</div>
+            <p class="timeline__desc">클라이언트가 블라인드 결과물을 비교 평가합니다. 코드 품질, 완성도, 속도 — 결과물이 전부입니다.</p>
+          </div>
         </div>
-        <div class="how-card reveal">
-          <div class="how-card__number">4</div>
-          <div class="how-card__icon">🚀</div>
-          <div class="how-card__name">select</div>
-          <div class="how-card__title">매칭 & 프로젝트 시작</div>
-          <p class="how-card__desc">선택된 개발자와 프로젝트를 시작합니다. 마일스톤 기반으로 진행하며, 결과물로 계속 검증합니다.</p>
+        <div class="timeline__step rv">
+          <div class="timeline__marker">04</div>
+          <div class="timeline__body">
+            <div class="timeline__name">select</div>
+            <div class="timeline__title">매칭 & 프로젝트 시작</div>
+            <p class="timeline__desc">선택된 개발자와 프로젝트를 시작합니다. 마일스톤 기반으로 진행하며, 결과물로 계속 검증합니다.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="divider--fade divider">
+  <hr class="divider">
 
   <!-- Waitlist -->
-  <section class="waitlist" id="waitlist">
+  <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
+    <div class="waitlist__glow"></div>
     <div class="wrap">
-      <h2 class="waitlist__title reveal">웨이트리스트 등록</h2>
-      <p class="waitlist__sub reveal">결과물로 증명하는 시대, 가장 먼저 시작하세요.</p>
-      <div class="waitlist__counter reveal">
+      <h2 class="waitlist__title rv" id="waitlist-title">웨이트리스트 등록</h2>
+      <p class="waitlist__sub rv">결과물로 증명하는 시대, 가장 먼저 시작하세요.</p>
+      <div class="waitlist__counter rv">
         <span class="waitlist__counter-num" id="waitlistCount">0</span>명이 대기 중
       </div>
 
-      <div class="waitlist__benefits reveal">
-        <div class="waitlist__benefit">
-          <span class="waitlist__benefit-icon">✓</span>
-          얼리 액세스 우선 초대
-        </div>
-        <div class="waitlist__benefit">
-          <span class="waitlist__benefit-icon">✓</span>
-          첫 매칭 수수료 무료
-        </div>
-        <div class="waitlist__benefit">
-          <span class="waitlist__benefit-icon">✓</span>
-          런칭 전 피드백 참여
-        </div>
+      <div class="waitlist__benefits rv">
+        <div class="waitlist__benefit"><span class="waitlist__benefit-icon">+</span>얼리 액세스 우선 초대</div>
+        <div class="waitlist__benefit"><span class="waitlist__benefit-icon">+</span>첫 매칭 수수료 무료</div>
+        <div class="waitlist__benefit"><span class="waitlist__benefit-icon">+</span>런칭 전 피드백 참여</div>
       </div>
 
       <div class="waitlist__box">
-        <div class="cli-box reveal">
-          <span class="cli-box__title">vibes register</span>
+        <div class="waitlist__form-wrap rv">
+          <span class="waitlist__form-label">vibes register</span>
 
           <div id="formView">
             <div class="toggle">
-              <button class="toggle__btn active" data-role="developer" type="button">개발자</button>
-              <button class="toggle__btn" data-role="client" type="button">클라이언트</button>
+              <button class="toggle__btn active" data-role="developer" type="button" aria-pressed="true">Developer</button>
+              <button class="toggle__btn" data-role="client" type="button" aria-pressed="false">Client</button>
             </div>
-            <form id="signupForm" novalidate>
+            <form id="signupForm" novalidate aria-label="웨이트리스트 등록 폼">
               <div class="form-group">
                 <label class="form-label" for="inputName">name</label>
                 <input type="text" class="form-input" id="inputName" placeholder="홍길동" autocomplete="name">
@@ -1437,9 +1388,9 @@
                 <label class="form-label" for="inputEmail">email<span class="req">*</span></label>
                 <input type="email" class="form-input" id="inputEmail" placeholder="you@example.com" required autocomplete="email">
               </div>
-              <div class="form-error" id="emailError">유효한 이메일을 입력해주세요.</div>
+              <div class="form-error" id="emailError" role="alert">유효한 이메일을 입력해주세요.</div>
               <input type="hidden" id="inputRole" value="developer">
-              <button type="submit" class="form-submit form-submit--dev" id="submitBtn">register --developer →</button>
+              <button type="submit" class="form-submit form-submit--dev" id="submitBtn">register --developer</button>
             </form>
           </div>
 
@@ -1455,13 +1406,13 @@
 </main>
 
 <!-- Footer -->
-<footer>
+<footer role="contentinfo">
   <div class="wrap">
     <div class="footer">
       <div class="footer__main">
         <div>
           <a href="#" class="footer__brand-logo">
-            <span class="footer__brand-mark">❯</span>
+            <span class="footer__brand-mark">V</span>
             <span class="footer__brand-name">vibes</span>
           </a>
           <p class="footer__brand-desc">포트폴리오 말고, 결과물로 증명하세요. 바이브 코딩 시대의 블라인드 MVP 매칭 플랫폼.</p>
@@ -1477,9 +1428,7 @@
         <div>
           <div class="footer__col-title">Connect</div>
           <ul class="footer__col-links">
-            <li><a href="https://www.threads.net/@vibes" target="_blank" rel="noopener">Threads</a></li>
-            <li><a href="https://www.instagram.com/vibes" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="mailto:hello@usevibes.app">Contact</a></li>
+            <li><a href="https://www.threads.net/@needsbuilder" target="_blank" rel="noopener noreferrer">Threads</a></li>
           </ul>
         </div>
       </div>
@@ -1509,37 +1458,35 @@
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), { passive: true });
 
-/* ── Hero glow parallax ── */
-const heroGlow = document.getElementById('heroGlow');
-if (heroGlow) {
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY * 0.15;
-    heroGlow.style.transform = `translateX(-50%) translateY(${y}px)`;
-  }, { passive: true });
-}
-
-/* ── Reveal (stagger: 100ms) ── */
+/* ── Reveal (stagger: 100ms per section) ── */
 const io = new IntersectionObserver(
-  entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }),
-  { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+  entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } }),
+  { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
 );
-document.querySelectorAll('section, footer').forEach(sec => {
-  sec.querySelectorAll('.reveal').forEach((el, i) => {
+document.querySelectorAll('section, footer, .marquee').forEach(sec => {
+  sec.querySelectorAll('.rv').forEach((el, i) => {
     el.style.transitionDelay = `${i * 100}ms`;
     io.observe(el);
   });
 });
-/* Hero instant */
-document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-  setTimeout(() => el.classList.add('visible'), 80 + i * 120);
+
+/* Hero instant reveal */
+document.querySelectorAll('.hero .rv').forEach((el, i) => {
+  setTimeout(() => el.classList.add('vis'), 100 + i * 140);
 });
+
+/* ── Blind text reveal ── */
+const blindHero = document.getElementById('blindHero');
+if (blindHero) {
+  setTimeout(() => blindHero.classList.add('revealed'), 1200);
+}
 
 /* ── Diff line reveal (stagger: 120ms) ── */
 const diffIo = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     e.target.querySelectorAll('.diff__line').forEach((l, i) => {
-      setTimeout(() => l.classList.add('visible'), i * 120);
+      setTimeout(() => l.classList.add('vis'), i * 120);
     });
     diffIo.unobserve(e.target);
   });
@@ -1547,20 +1494,30 @@ const diffIo = new IntersectionObserver(entries => {
 const diffEl = document.getElementById('diffBlock');
 if (diffEl) diffIo.observe(diffEl);
 
-/* ── Hero terminal animation ── */
-const heroTerm = document.getElementById('heroTerminal');
+/* ── Problem Card stagger entry ── */
+const cardIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.problem-card').forEach((c, i) => {
+      setTimeout(() => c.classList.add('vis'), i * 100);
+    });
+    cardIo.unobserve(e.target);
+  });
+}, { threshold: 0.1 });
+const problemGrid = document.querySelector('.problem__grid');
+if (problemGrid) cardIo.observe(problemGrid);
 
+/* ── Terminal animation ── */
+const heroTerm = document.getElementById('heroTerminal');
 function el(cls, html) {
   const d = document.createElement('div');
-  d.className = 'cli-box__line';
+  d.className = 't-line';
   if (cls) d.classList.add(cls);
   d.innerHTML = html;
   heroTerm.appendChild(d);
   return d;
 }
-
-async function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-
+const wait = ms => new Promise(r => setTimeout(r, ms));
 async function typeText(parent, text, speed = 40) {
   const span = document.createElement('span');
   parent.appendChild(span);
@@ -1569,35 +1526,34 @@ async function typeText(parent, text, speed = 40) {
     await wait(speed + Math.random() * 20);
   }
 }
-
 async function heroAnim() {
-  const line1 = el(null, '<span class="cli-box__prompt">❯ </span><span class="cli-box__cmd"></span><span class="cursor">▋</span>');
-  const cmdSpan = line1.querySelector('.cli-box__cmd');
-  const cur = line1.querySelector('.cursor');
-  await wait(400);
+  const line1 = el(null, '<span class="t-prompt">$ </span><span class="t-cmd"></span><span class="t-cursor">_</span>');
+  const cmdSpan = line1.querySelector('.t-cmd');
+  const cur = line1.querySelector('.t-cursor');
+  await wait(300);
   await typeText(cmdSpan, 'vibes --match');
   cur.remove();
-  await wait(500);
-
-  const think = el(null, '<span class="thinking">⏺</span> <span class="cli-box__dim">요구사항 분석 중...</span>');
-  await wait(800);
-
-  el(null, '');
-  el(null, '  <span class="cli-box__label">기능</span> <span class="cli-box__val">소셜 커머스 MVP</span>');
-  await wait(200);
-  el(null, '  <span class="cli-box__label">스택</span> <span class="cli-box__val">Next.js + Supabase</span>');
-  await wait(200);
-  el(null, '  <span class="cli-box__label">기한</span> <span class="cli-box__val">2주</span>');
-  await wait(600);
-
-  think.innerHTML = '<span class="cli-box__arrow">→</span> 3명의 개발자 블라인드 매칭 완료';
   await wait(400);
 
+  const think = el(null, '<span class="t-thinking">*</span> <span class="t-muted">요구사항 분석 중...</span>');
+  await wait(700);
+
   el(null, '');
-  const pLine = el(null, '<span class="cli-progress"></span>');
-  const prog = pLine.querySelector('.cli-progress');
-  const total = 30;
-  const duration = 1800;
+  el(null, '  <span class="t-label">기능</span> <span class="t-val">소셜 커머스 MVP</span>');
+  await wait(150);
+  el(null, '  <span class="t-label">스택</span> <span class="t-val">Next.js + Supabase</span>');
+  await wait(150);
+  el(null, '  <span class="t-label">기한</span> <span class="t-val">2주</span>');
+  await wait(500);
+
+  think.innerHTML = '<span class="t-arrow">-></span> 3명의 개발자 블라인드 매칭 완료';
+  await wait(300);
+
+  el(null, '');
+  const pLine = el(null, '<span class="t-bar"></span>');
+  const prog = pLine.querySelector('.t-bar');
+  const total = 28;
+  const duration = 1600;
   const start = performance.now();
   await new Promise(resolve => {
     function tick(now) {
@@ -1605,28 +1561,27 @@ async function heroAnim() {
       const filled = Math.round(p * total);
       const empty = total - filled;
       prog.innerHTML =
-        '<span class="cli-progress__fill">' + '█'.repeat(filled) + '</span>' +
-        '<span class="cli-progress__empty">' + '░'.repeat(empty) + '</span>' +
-        '<span class="cli-progress__pct">' + Math.round(p * 100) + '%</span>';
+        '<span class="t-bar-fill">' + '#'.repeat(filled) + '</span>' +
+        '<span class="t-bar-empty">' + '-'.repeat(empty) + '</span>' +
+        '<span class="t-bar-pct">' + Math.round(p * 100) + '%</span>';
       if (p < 1) requestAnimationFrame(tick); else resolve();
     }
     requestAnimationFrame(tick);
   });
-  await wait(300);
+  await wait(200);
 
   el(null, '');
-  el(null, '<span class="cli-box__ok">✓</span> MVP 빌드 완료 — 결과물로 선택하세요');
+  el(null, '<span class="t-ok">done</span> MVP 빌드 완료 — 결과물로 선택하세요');
 }
-
 const heroBoxObs = new IntersectionObserver(entries => {
   if (entries[0].isIntersecting) {
-    setTimeout(heroAnim, 500);
+    setTimeout(heroAnim, 400);
     heroBoxObs.unobserve(entries[0].target);
   }
 }, { threshold: 0.3 });
 heroBoxObs.observe(document.getElementById('heroBox'));
 
-/* ── Waitlist Counter Animation ── */
+/* ── Waitlist Counter ── */
 const countEl = document.getElementById('waitlistCount');
 const counterTarget = 147;
 const counterIo = new IntersectionObserver(entries => {
@@ -1651,20 +1606,21 @@ const nameInput = document.getElementById('inputName');
 
 toggleBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    toggleBtns.forEach(b => b.classList.remove('active'));
+    toggleBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
     const role = btn.dataset.role;
     inputRole.value = role;
     if (role === 'developer') {
       submitBtn.className = 'form-submit form-submit--dev';
-      submitBtn.textContent = 'register --developer →';
+      submitBtn.textContent = 'register --developer';
       emailInput.className = 'form-input';
       nameInput.className = 'form-input';
     } else {
       submitBtn.className = 'form-submit form-submit--client';
-      submitBtn.textContent = 'register --client →';
-      emailInput.className = 'form-input focus--purple';
-      nameInput.className = 'form-input focus--purple';
+      submitBtn.textContent = 'register --client';
+      emailInput.className = 'form-input focus--green';
+      nameInput.className = 'form-input focus--green';
     }
   });
 });
@@ -1687,32 +1643,21 @@ form.addEventListener('submit', async e => {
   }
   emailError.style.display = 'none';
   submitBtn.disabled = true;
-  submitBtn.textContent = '전송 중...';
+  submitBtn.textContent = 'sending...';
 
   const role = inputRole.value;
   const name = nameInput.value.trim();
-
   const url = 'https://script.google.com/macros/s/AKfycbx2jlWT141xqESFs_RhIVsqocudgv4zX9H4p7ESjqxXBtWR8NC-Nz_9BZ8vrUuQYi1DnA/exec';
   try {
-    await fetch(url, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ name, email, role })
-    });
+    await fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ name, email, role }) });
   } catch {}
 
   formView.style.display = 'none';
   resultView.style.display = 'block';
-
-  const msg = `✓ ${role === 'developer' ? '개발자' : '클라이언트'}로 등록 완료!`;
+  const msg = `+ ${role === 'developer' ? '개발자' : '클라이언트'}로 등록 완료!`;
   resultText.textContent = '';
-  for (const ch of msg) {
-    resultText.textContent += ch;
-    await wait(30);
-  }
+  for (const ch of msg) { resultText.textContent += ch; await wait(30); }
 });
-
 emailInput.addEventListener('input', () => { emailError.style.display = 'none'; });
 
 /* ── Smooth scroll ── */
@@ -1723,7 +1668,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ── Lo-fi BGM — Sunset (Web Audio API) ── */
+/* ── Lo-fi BGM — Web Audio API ── */
 const bgmBtn = document.getElementById('bgmToggle');
 let bgmPlaying = false;
 let bgmInstance = null;
@@ -1734,7 +1679,6 @@ function createLofi() {
   const master = ctx.createGain();
   master.gain.value = 0;
 
-  /* Reverb */
   const rvLen = sr * 2.5;
   const rvBuf = ctx.createBuffer(2, rvLen, sr);
   for (let ch = 0; ch < 2; ch++) {
@@ -1744,7 +1688,6 @@ function createLofi() {
   const reverb = ctx.createConvolver(); reverb.buffer = rvBuf;
   const rvG = ctx.createGain(); rvG.gain.value = 0.35;
   const dryG = ctx.createGain(); dryG.gain.value = 0.65;
-
   const lofi = ctx.createBiquadFilter(); lofi.type = 'lowpass'; lofi.frequency.value = 2800; lofi.Q.value = 0.7;
   const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 80;
   dryG.connect(lofi); rvG.connect(lofi); lofi.connect(hp); hp.connect(master); master.connect(ctx.destination);
@@ -1752,7 +1695,6 @@ function createLofi() {
   const sendDry = ctx.createGain(); sendDry.connect(dryG);
   const sendWet = ctx.createGain(); sendWet.connect(reverb); reverb.connect(rvG);
 
-  /* Vinyl crackle */
   const nLen = sr * 4;
   const nBuf = ctx.createBuffer(1, nLen, sr);
   const nd = nBuf.getChannelData(0);
@@ -1766,12 +1708,10 @@ function createLofi() {
   const nG = ctx.createGain(); nG.gain.value = 0.025;
   noise.connect(nBP); nBP.connect(nHP); nHP.connect(nG); nG.connect(dryG); noise.start();
 
-  /* Tape wobble */
   const wobLfo = ctx.createOscillator(); wobLfo.frequency.value = 0.4;
   const wobG = ctx.createGain(); wobG.gain.value = 4;
   wobLfo.connect(wobG); wobLfo.start();
 
-  /* Dmaj7 → Em7 → F#m7 → Gmaj7 */
   const chords = [
     [293.66, 369.99, 440.00, 554.37],
     [329.63, 392.00, 493.88, 587.33],
@@ -1814,7 +1754,6 @@ function createLofi() {
   schedC();
   const t1 = setInterval(schedC, 3000);
 
-  /* Sub bass */
   const sub = ctx.createOscillator(); sub.type = 'sine'; sub.frequency.value = chords[0][0] / 2;
   const sG = ctx.createGain(); sG.gain.value = 0.05;
   const sLP = ctx.createBiquadFilter(); sLP.type = 'lowpass'; sLP.frequency.value = 150;
@@ -1829,7 +1768,6 @@ function createLofi() {
   schedS();
   const t2 = setInterval(schedS, 3000);
 
-  /* Hi-hat */
   const hBuf = ctx.createBuffer(1, sr * 0.08, sr);
   const hD = hBuf.getChannelData(0);
   for (let i = 0; i < hD.length; i++) hD[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / hD.length, 6);
@@ -1888,7 +1826,6 @@ function stopBgm() {
   setTimeout(destroyBgm, 2000);
 }
 
-/* 첫 인터랙션 시 자동 재생 */
 function autoStart() {
   startBgm();
   document.removeEventListener('click', autoStart);
