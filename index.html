@@ -39,17 +39,20 @@
       --red-dim: rgba(240, 112, 112, 0.08);
       --yellow: #E0B050;
       --blue: #6BA5E8;
+      --purple: #A78BFA;
+      --purple-dim: rgba(167, 139, 250, 0.08);
       --mono: 'JetBrains Mono', monospace;
       --body: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--mono);
+      font-family: var(--body);
       background: var(--bg);
       color: var(--text);
-      font-size: 14px;
+      font-size: 15px;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
@@ -60,22 +63,32 @@
       color: var(--bg);
     }
 
+    /* ── Noise Overlay ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.04;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
     /* ── Layout ── */
     .wrap {
-      max-width: 1080px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
     }
 
-    section { padding: 60px 0; }
-
-    /* ── Top Accent Line ── */
+    /* ── Top Accent Line (orange → purple gradient) ── */
     body::before {
       content: '';
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--accent), #E8A070, var(--accent));
+      background: linear-gradient(90deg, #D4875E 0%, #E8A070 50%, #A78BFA 100%);
       z-index: 200;
     }
 
@@ -98,7 +111,13 @@
       font-size: 8px;
       color: var(--accent);
       letter-spacing: 4px;
+      font-family: var(--mono);
     }
+    /* Gradient fade line variant */
+    .divider--fade {
+      background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    }
+    .divider--fade::after { display: none; }
 
     /* ── Cursor Blink ── */
     @keyframes blink {
@@ -124,20 +143,22 @@
     /* ── Reveal ── */
     .reveal {
       opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
     }
     .reveal.visible {
       opacity: 1;
       transform: none;
     }
 
-    /* ── Nav ── */
+    /* ── Nav (Glassmorphism) ── */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: var(--bg);
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s;
     }
@@ -145,7 +166,7 @@
       border-bottom-color: var(--border);
     }
     .nav__inner {
-      max-width: 1080px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
       display: flex;
@@ -171,6 +192,7 @@
       font-weight: 700;
       color: var(--bg);
       letter-spacing: -1px;
+      font-family: var(--mono);
       box-shadow: 0 0 16px var(--accent-dim), 0 0 0 1px rgba(212, 135, 94, 0.2);
     }
     .nav__logo-text {
@@ -178,6 +200,7 @@
       font-weight: 700;
       color: var(--text-bright);
       letter-spacing: -0.5px;
+      font-family: var(--mono);
     }
     .nav__cta {
       font-family: var(--mono);
@@ -200,10 +223,48 @@
 
     /* ── Hero ── */
     .hero {
-      padding-top: 96px;
-      padding-bottom: 48px;
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding-top: 56px;
     }
+
+    /* Hero Grid Background Pattern */
+    .hero__grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Hero Ambient Glow (enhanced) */
+    .hero__glow {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(212,135,94,0.10) 0%, rgba(167,139,250,0.05) 40%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero > .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
     .hero__tag {
+      font-family: var(--mono);
       font-size: 12px;
       color: var(--accent);
       margin-bottom: 20px;
@@ -211,37 +272,44 @@
     }
     .hero__title {
       font-family: var(--body);
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2.2rem, 5.5vw, 3.5rem);
       font-weight: 800;
       color: var(--text-bright);
       line-height: 1.35;
       letter-spacing: -1.5px;
       margin-bottom: 20px;
     }
+    .hero__title-accent {
+      background: linear-gradient(135deg, #D4875E, #E8A070, #A78BFA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .hero__sub {
       font-family: var(--body);
-      font-size: 15px;
+      font-size: 16px;
       color: var(--text-secondary);
       line-height: 1.7;
       margin-bottom: 32px;
       max-width: 640px;
     }
 
-    /* ── Hero Grid ── */
+    /* Hero Grid Layout */
     .hero__grid {
       display: grid;
       grid-template-columns: 1fr 480px;
       gap: 48px;
       align-items: center;
     }
-    .hero__grid .hero__sub { margin-bottom: 32px; }
 
     /* ── CLI Box ── */
     .cli-box {
       border: 1px solid var(--border);
       border-top: 1px solid rgba(212, 135, 94, 0.25);
       border-radius: 8px;
-      background: var(--bg-box);
+      background: rgba(15, 15, 15, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       padding: 24px;
       position: relative;
       margin-bottom: 28px;
@@ -255,6 +323,7 @@
       font-size: 11px;
       color: var(--accent);
       letter-spacing: 0.3px;
+      font-family: var(--mono);
     }
     /* Terminal window variant */
     .cli-box--terminal {
@@ -262,7 +331,12 @@
       margin-bottom: 0;
       border-top: 1px solid var(--border);
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(212,135,94,0.08);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.4),
+        0 24px 64px rgba(0,0,0,0.2),
+        0 0 0 1px rgba(212,135,94,0.08),
+        0 0 60px rgba(212,135,94,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.03);
     }
     .cli-box__bar {
       display: flex;
@@ -287,12 +361,18 @@
       color: var(--text-dim);
       letter-spacing: 0.3px;
       padding-right: 30px;
+      font-family: var(--mono);
     }
-    .cli-box__content { padding: 20px 24px; }
+    .cli-box__content {
+      padding: 20px 24px;
+      font-family: var(--mono);
+      font-size: 14px;
+    }
     .cli-box__line {
       white-space: pre-wrap;
       word-break: break-all;
       min-height: 1.7em;
+      font-family: var(--mono);
     }
     .cli-box__prompt { color: var(--accent); font-weight: 600; }
     .cli-box__cmd { color: var(--text-bright); }
@@ -330,10 +410,28 @@
       background: var(--accent);
       color: var(--bg);
       border-color: var(--accent);
+      position: relative;
+      overflow: hidden;
     }
     .btn--accent:hover {
       background: #E09570;
       border-color: #E09570;
+      transform: scale(1.03);
+      box-shadow: 0 0 20px var(--accent-dim);
+    }
+    .btn--accent::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      animation: shine 4s ease-in-out infinite;
+    }
+    @keyframes shine {
+      0%, 70%, 100% { left: -100%; }
+      35% { left: 120%; }
     }
     .btn--ghost {
       background: transparent;
@@ -350,7 +448,73 @@
       flex-wrap: wrap;
     }
 
+    /* ── Floating Particles (CSS only) ── */
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleFloat 8s ease-in-out infinite;
+    }
+    .particle--1 {
+      width: 4px; height: 4px;
+      background: var(--accent);
+      top: 20%; left: 8%;
+      animation-delay: 0s;
+    }
+    .particle--2 {
+      width: 3px; height: 3px;
+      background: var(--purple);
+      top: 35%; right: 12%;
+      animation-delay: 1.5s;
+    }
+    .particle--3 {
+      width: 5px; height: 5px;
+      background: var(--accent);
+      top: 60%; left: 4%;
+      animation-delay: 3s;
+    }
+    .particle--4 {
+      width: 3px; height: 3px;
+      background: var(--purple);
+      top: 45%; right: 6%;
+      animation-delay: 4.5s;
+    }
+    .particle--5 {
+      width: 2px; height: 2px;
+      background: var(--accent);
+      top: 75%; right: 15%;
+      animation-delay: 6s;
+    }
+    .particle--6 {
+      width: 6px; height: 6px;
+      border: 1px solid rgba(212,135,94,0.3);
+      background: transparent;
+      top: 25%; right: 20%;
+      animation-delay: 2s;
+    }
+    .particle--7 {
+      width: 6px; height: 6px;
+      border: 1px solid rgba(167,139,250,0.25);
+      background: transparent;
+      top: 65%; left: 15%;
+      animation-delay: 5s;
+    }
+    @keyframes particleFloat {
+      0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+      20% { opacity: 0.6; }
+      50% { opacity: 0.8; transform: translateY(-30px) scale(1); }
+      80% { opacity: 0.4; }
+    }
+
     /* ── Problem ── */
+    .problem { padding: 100px 0 80px; }
     .problem__head {
       display: flex;
       align-items: center;
@@ -361,10 +525,15 @@
       color: var(--red);
       font-weight: 700;
       font-size: 13px;
+      font-family: var(--mono);
+      background: var(--red-dim);
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-shadow: 0 0 12px rgba(240,112,112,0.4);
     }
     .problem__title {
       font-family: var(--body);
-      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
       font-weight: 700;
       color: var(--text-bright);
       letter-spacing: -0.5px;
@@ -372,7 +541,7 @@
     .problem__desc {
       color: var(--text-secondary);
       font-family: var(--body);
-      font-size: 14px;
+      font-size: 15px;
       margin-bottom: 28px;
       max-width: 640px;
     }
@@ -381,10 +550,11 @@
       border-left: 2px solid var(--border-bright);
       padding: 16px 0 16px 20px;
       margin-bottom: 4px;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .warn-item:hover {
       border-left-color: var(--accent);
+      box-shadow: -4px 0 16px -4px var(--accent-dim);
     }
     .warn-item__head {
       display: flex;
@@ -397,21 +567,23 @@
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.3px;
+      font-family: var(--mono);
     }
     .warn-item__title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-bright);
     }
     .warn-item__body {
       font-family: var(--body);
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
       line-height: 1.6;
       padding-left: 2px;
     }
 
     /* ── Solution ── */
+    .solution { padding: 80px 0; }
     .solution__head {
       display: flex;
       align-items: center;
@@ -422,10 +594,14 @@
       color: var(--green);
       font-weight: 700;
       font-size: 13px;
+      font-family: var(--mono);
+      background: var(--green-dim);
+      padding: 3px 10px;
+      border-radius: 4px;
     }
     .solution__title {
       font-family: var(--body);
-      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
       font-weight: 700;
       color: var(--text-bright);
       letter-spacing: -0.5px;
@@ -433,7 +609,7 @@
     .solution__desc {
       color: var(--text-secondary);
       font-family: var(--body);
-      font-size: 14px;
+      font-size: 15px;
       margin-bottom: 28px;
       max-width: 640px;
     }
@@ -445,6 +621,7 @@
       background: var(--bg-box);
       overflow: hidden;
       font-size: 13px;
+      font-family: var(--mono);
       line-height: 1.8;
       margin-bottom: 32px;
     }
@@ -457,6 +634,7 @@
     }
     .diff__body {
       padding: 8px 0;
+      counter-reset: diffline;
     }
     .diff__hunk {
       padding: 2px 20px;
@@ -466,12 +644,23 @@
     .diff__line {
       padding: 1px 20px;
       opacity: 0;
-      transform: translateX(-8px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateX(-12px);
+      transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+      counter-increment: diffline;
     }
     .diff__line.visible {
       opacity: 1;
       transform: none;
+    }
+    .diff__line::before {
+      content: counter(diffline);
+      display: inline-block;
+      width: 20px;
+      margin-right: 12px;
+      text-align: right;
+      color: var(--text-dim);
+      font-size: 11px;
+      opacity: 0.4;
     }
     .diff__line--del {
       background: var(--red-dim);
@@ -487,12 +676,13 @@
 
     /* Quote */
     .quote {
-      border-left: 2px solid var(--accent);
+      border-left: 2px solid;
+      border-image: linear-gradient(to bottom, var(--accent), var(--purple)) 1;
       padding-left: 20px;
     }
     .quote__text {
       font-family: var(--body);
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-secondary);
       font-style: italic;
       line-height: 1.7;
@@ -501,58 +691,129 @@
       font-size: 12px;
       color: var(--text-dim);
       margin-top: 8px;
+      font-family: var(--mono);
     }
 
-    /* ── How (--help) ── */
+    /* ── How (--help) — Card Grid ── */
+    .how { padding: 100px 0 80px; }
     .how__prompt {
       font-size: 15px;
       margin-bottom: 8px;
+      font-family: var(--mono);
     }
     .how__prompt-char { color: var(--accent); font-weight: 600; }
     .how__prompt-cmd { color: var(--text-bright); }
     .how__tagline {
       color: var(--text-secondary);
       font-family: var(--body);
-      font-size: 14px;
-      margin-bottom: 40px;
+      font-size: 15px;
+      margin-bottom: 48px;
     }
-    .how__section-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-    }
-    .cmd-item {
+
+    .how__cards {
       display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 8px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
     }
-    .cmd-item__name {
+
+    .how-card {
+      position: relative;
+      background: rgba(15, 15, 15, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo), border-color 0.3s;
+    }
+    .how-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212, 135, 94, 0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 40px rgba(212,135,94,0.05);
+    }
+    .how-card__number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent-dim);
       color: var(--accent);
-      font-weight: 600;
+      font-family: var(--mono);
       font-size: 14px;
-      padding-top: 1px;
+      font-weight: 700;
+      margin-bottom: 16px;
     }
-    .cmd-item__title {
-      font-size: 14px;
+    .how-card__icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .how-card__name {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .how-card__title {
+      font-size: 16px;
       font-weight: 600;
       color: var(--text-bright);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
-    .cmd-item__desc {
+    .how-card__desc {
       font-family: var(--body);
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
       line-height: 1.6;
     }
 
+    /* Connection arrows between cards */
+    .how__cards::before,
+    .how__cards::after {
+      display: none;
+    }
+    .how-card__arrow {
+      display: none;
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 14px;
+      z-index: 2;
+      font-family: var(--mono);
+    }
+    .how-card:not(:last-child) .how-card__arrow {
+      display: block;
+    }
+
     /* ── Waitlist ── */
-    .waitlist { text-align: center; }
+    .waitlist {
+      text-align: center;
+      padding: 120px 0 100px;
+      position: relative;
+    }
+    /* Waitlist background glow */
+    .waitlist::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212,135,94,0.06) 0%, rgba(167,139,250,0.03) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .waitlist > .wrap { position: relative; z-index: 1; }
+
     .waitlist__title {
       font-family: var(--body);
-      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
       font-weight: 700;
       color: var(--text-bright);
       letter-spacing: -0.5px;
@@ -561,9 +822,44 @@
     .waitlist__sub {
       color: var(--text-secondary);
       font-family: var(--body);
-      font-size: 14px;
-      margin-bottom: 40px;
+      font-size: 15px;
+      margin-bottom: 16px;
     }
+
+    /* Waitlist Counter */
+    .waitlist__counter {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+    }
+    .waitlist__counter-num {
+      font-weight: 700;
+    }
+
+    /* Early Access Benefits */
+    .waitlist__benefits {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .waitlist__benefit {
+      font-family: var(--body);
+      font-size: 14px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .waitlist__benefit-icon {
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
     .waitlist__box {
       max-width: 440px;
       margin: 0 auto;
@@ -589,7 +885,7 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       letter-spacing: 0.2px;
     }
     .toggle__btn:first-child { border-right: 1px solid var(--border); }
@@ -598,8 +894,8 @@
       color: var(--accent);
     }
     .toggle__btn.active[data-role="client"] {
-      background: rgba(167, 139, 250, 0.08);
-      color: #A78BFA;
+      background: var(--purple-dim);
+      color: var(--purple);
     }
 
     /* Form */
@@ -611,6 +907,7 @@
     }
     .form-label {
       font-size: 12px;
+      font-family: var(--mono);
       color: var(--text-dim);
       width: 48px;
       flex-shrink: 0;
@@ -631,9 +928,10 @@
     }
     .form-input::placeholder { color: var(--text-dim); }
     .form-input:focus { border-color: var(--accent); }
-    .form-input.focus--purple:focus { border-color: #A78BFA; }
+    .form-input.focus--purple:focus { border-color: var(--purple); }
     .form-error {
       font-size: 12px;
+      font-family: var(--mono);
       color: var(--red);
       margin: -8px 0 12px 60px;
       display: none;
@@ -642,7 +940,7 @@
     .form-submit {
       width: 100%;
       margin-top: 8px;
-      padding: 12px;
+      padding: 14px;
       font-family: var(--mono);
       font-size: 13px;
       font-weight: 600;
@@ -654,16 +952,25 @@
     .form-submit--dev {
       background: var(--accent);
       color: var(--bg);
+      box-shadow: 0 0 20px rgba(212,135,94,0.15);
     }
-    .form-submit--dev:hover { background: #E09570; }
+    .form-submit--dev:hover {
+      background: #E09570;
+      box-shadow: 0 0 30px rgba(212,135,94,0.25);
+    }
     .form-submit--client {
-      background: #A78BFA;
+      background: var(--purple);
       color: var(--bg);
+      box-shadow: 0 0 20px rgba(167,139,250,0.15);
     }
-    .form-submit--client:hover { background: #B89DFC; }
+    .form-submit--client:hover {
+      background: #B89DFC;
+      box-shadow: 0 0 30px rgba(167,139,250,0.25);
+    }
     .form-submit:disabled {
       opacity: 0.4;
       cursor: not-allowed;
+      box-shadow: none;
     }
 
     /* Result */
@@ -674,6 +981,7 @@
     }
     .form-result__text {
       font-size: 15px;
+      font-family: var(--mono);
       color: var(--green);
       min-height: 1.5em;
     }
@@ -684,148 +992,164 @@
       margin-top: 12px;
     }
 
-    /* ── Footer ── */
+    /* ── Footer (3-column) ── */
     .footer {
-      padding: 32px 0;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid transparent;
+      border-image: linear-gradient(90deg, transparent, var(--border-bright), transparent) 1;
+    }
+    .footer__main {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      padding: 48px 0 40px;
+    }
+    .footer__brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      text-decoration: none;
+    }
+    .footer__brand-mark {
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--bg);
+      font-family: var(--mono);
+    }
+    .footer__brand-name {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-bright);
+    }
+    .footer__brand-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      max-width: 280px;
+    }
+    .footer__col-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer__col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer__col-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer__col-links a:hover { color: var(--purple); }
+    .footer__soon {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--text-dim);
+      background: rgba(255,255,255,0.04);
+      padding: 2px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+    }
+    .footer__bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
       font-size: 12px;
       color: var(--text-dim);
     }
-    .footer a {
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer a:hover { color: var(--accent); }
-    .footer__links {
+    .footer__bottom-links {
       display: flex;
       gap: 16px;
     }
-
-    .hero { position: relative; }
-
-    /* ── Ambient Glow ── */
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(212,135,94,0.07) 0%, rgba(167,139,250,0.04) 50%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .hero > .wrap { position: relative; z-index: 1; }
-
-    /* ── Sparkles ── */
-    .sparkle {
-      position: absolute;
-      color: var(--accent);
-      animation: sparkle 2.5s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 1;
-      font-size: 12px;
-    }
-    @keyframes sparkle {
-      0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-      50% { opacity: 0.8; transform: scale(1.1) rotate(180deg); }
-    }
-
-    /* ── Upgrade: Buttons ── */
-    .btn--accent { position: relative; overflow: hidden; }
-    .btn--accent:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px var(--accent-dim);
-    }
-    .btn--accent::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-      animation: shine 4s ease-in-out infinite;
-    }
-    @keyframes shine {
-      0%, 70%, 100% { left: -100%; }
-      35% { left: 120%; }
-    }
-    .warn-item:hover { box-shadow: -4px 0 16px -4px var(--accent-dim); }
-    .toggle__btn { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-
-    /* ── Upgrade: Section Tags ── */
-    .problem__head-icon {
-      background: var(--red-dim);
-      padding: 3px 10px;
-      border-radius: 4px;
-      text-shadow: 0 0 12px rgba(167,139,250,0.4);
-    }
-    .solution__head-icon {
-      background: var(--green-dim);
-      padding: 3px 10px;
-      border-radius: 4px;
-    }
-
-    /* ── Upgrade: Diff Line Numbers ── */
-    .diff__body { counter-reset: diffline; }
-    .diff__line { counter-increment: diffline; }
-    .diff__line::before {
-      content: counter(diffline);
-      display: inline-block;
-      width: 20px;
-      margin-right: 12px;
-      text-align: right;
+    .footer__bottom-links a {
       color: var(--text-dim);
-      font-size: 11px;
-      opacity: 0.4;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
     }
+    .footer__bottom-links a:hover { color: var(--text-secondary); }
 
-    /* ── Upgrade: Quote Gradient ── */
-    .quote {
-      border-left: 2px solid;
-      border-image: linear-gradient(to bottom, var(--accent), #A78BFA) 1;
-    }
-
-    /* ── Upgrade: Divider Pulse ── */
-    .divider::after { animation: diamondPulse 3s ease-in-out infinite; }
-    @keyframes diamondPulse {
-      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
-    }
-
-    /* ── Upgrade: Logo Pulse ── */
+    /* ── Logo Pulse ── */
     .nav__logo-mark { animation: logoPulse 3s ease-in-out infinite; }
     @keyframes logoPulse {
       0%, 100% { box-shadow: 0 0 16px var(--accent-dim), 0 0 0 1px rgba(212,135,94,0.2); }
       50% { box-shadow: 0 0 24px var(--accent-dim), 0 0 0 1px rgba(212,135,94,0.35); }
     }
 
-    /* ── Upgrade: Footer Purple ── */
-    .footer a:hover { color: #A78BFA; }
+    /* ── Divider Pulse ── */
+    .divider::after { animation: diamondPulse 3s ease-in-out infinite; }
+    @keyframes diamondPulse {
+      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
+    }
 
-    /* ── Responsive ── */
+    /* ── Responsive: 1024px ── */
+    @media (max-width: 1024px) {
+      .hero__grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .wrap { padding: 0 32px; }
+      .how__cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .how-card:not(:last-child) .how-card__arrow { display: none; }
+      .footer__main { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    /* ── Responsive: 768px ── */
+    @media (max-width: 768px) {
+      .hero__title { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+      .problem__title, .solution__title, .waitlist__title {
+        font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      }
+      .problem, .how { padding: 80px 0 60px; }
+      .solution { padding: 60px 0; }
+      .waitlist { padding: 80px 0 60px; }
+      .footer__main { grid-template-columns: 1fr; gap: 32px; }
+      .waitlist__benefits { flex-direction: column; align-items: center; gap: 12px; }
+    }
+
+    /* ── Responsive: 640px ── */
     @media (max-width: 640px) {
-      body { font-size: 13px; }
-      section { padding: 64px 0; }
-      .hero { padding-top: 80px; padding-bottom: 36px; }
+      body { font-size: 14px; }
+      .hero { min-height: auto; padding-top: 80px; padding-bottom: 36px; }
       .hero__grid { grid-template-columns: 1fr; gap: 32px; }
       .hero__actions { flex-direction: column; }
-      .btn { width: 100%; justify-content: center; }
+      .btn { width: 100%; justify-content: center; min-height: 44px; }
       .cli-box { padding: 18px 16px; }
       .diff__line, .diff__hunk, .diff__title { padding-left: 14px; padding-right: 14px; }
-      .cmd-item { grid-template-columns: 1fr; gap: 4px; }
-      .cmd-item__name { font-size: 13px; }
+      .how__cards { grid-template-columns: 1fr; }
+      .how-card:not(:last-child) .how-card__arrow { display: none; }
       .form-group { flex-direction: column; align-items: stretch; gap: 6px; }
       .form-label { width: auto; text-align: left; }
       .form-error { margin-left: 0; }
-      .footer { flex-direction: column; gap: 12px; text-align: center; }
-      .sparkle:nth-of-type(n+4) { display: none; }
+      .toggle__btn { min-height: 44px; }
+      .form-input { min-height: 44px; }
+      .form-submit { min-height: 44px; }
+      .footer__bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .particle:nth-child(n+5) { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -835,8 +1159,71 @@
       }
       .reveal { opacity: 1; transform: none; }
       .diff__line { opacity: 1; transform: none; }
-      .sparkle { display: none; }
+      .particle { display: none; }
     }
+
+    /* ── BGM Toggle ── */
+    .bgm-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 150;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border-bright);
+      background: rgba(15, 15, 15, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--ease-out-expo);
+      color: var(--text-dim);
+      font-size: 18px;
+      padding: 0;
+    }
+    .bgm-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(212,135,94,0.1);
+    }
+    .bgm-toggle.playing {
+      border-color: rgba(212, 135, 94, 0.4);
+      color: var(--accent);
+    }
+    /* Sound wave bars animation */
+    .bgm-bars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 16px;
+    }
+    .bgm-bar {
+      width: 3px;
+      background: currentColor;
+      border-radius: 1px;
+      transition: height 0.1s;
+    }
+    .bgm-toggle:not(.playing) .bgm-bar {
+      height: 3px !important;
+    }
+    .bgm-toggle.playing .bgm-bar {
+      animation: bgmBounce 0.8s ease-in-out infinite alternate;
+    }
+    .bgm-toggle.playing .bgm-bar:nth-child(1) { animation-delay: 0s; }
+    .bgm-toggle.playing .bgm-bar:nth-child(2) { animation-delay: 0.15s; }
+    .bgm-toggle.playing .bgm-bar:nth-child(3) { animation-delay: 0.3s; }
+    .bgm-toggle.playing .bgm-bar:nth-child(4) { animation-delay: 0.45s; }
+    @keyframes bgmBounce {
+      0% { height: 4px; }
+      100% { height: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bgm-toggle.playing .bgm-bar { animation: none; height: 8px !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -845,9 +1232,9 @@
 <nav class="nav" id="nav">
   <div class="nav__inner">
     <a href="#" class="nav__logo">
-        <span class="nav__logo-mark">❯</span>
-        <span class="nav__logo-text">vibes</span>
-      </a>
+      <span class="nav__logo-mark">❯</span>
+      <span class="nav__logo-text">vibes</span>
+    </a>
     <a href="#waitlist" class="nav__cta">웨이트리스트 등록</a>
   </div>
 </nav>
@@ -856,11 +1243,22 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
+    <div class="hero__grid-bg"></div>
+    <div class="hero__glow" id="heroGlow"></div>
+    <div class="particles">
+      <div class="particle particle--1"></div>
+      <div class="particle particle--2"></div>
+      <div class="particle particle--3"></div>
+      <div class="particle particle--4"></div>
+      <div class="particle particle--5"></div>
+      <div class="particle particle--6"></div>
+      <div class="particle particle--7"></div>
+    </div>
     <div class="wrap">
       <div class="hero__grid">
         <div>
           <div class="hero__tag reveal">[EARLY ACCESS]</div>
-          <h1 class="hero__title reveal">포트폴리오 말고,<br><span style="color:var(--accent)">결과물</span>로 증명하세요.</h1>
+          <h1 class="hero__title reveal">포트폴리오 말고,<br><span class="hero__title-accent">결과물</span>로 증명하세요.</h1>
           <p class="hero__sub reveal">바이브 코딩 시대, 포트폴리오가 아닌 실제 MVP 결과물로 개발자와 클라이언트를 블라인드 매칭합니다.</p>
           <div class="hero__actions reveal">
             <a href="#waitlist" class="btn btn--accent">웨이트리스트 등록 →</a>
@@ -878,11 +1276,6 @@
         </div>
       </div>
     </div>
-    <span class="sparkle" style="top:18%;left:6%">✦</span>
-    <span class="sparkle" style="top:30%;right:10%;animation-delay:0.5s;color:#A78BFA">+</span>
-    <span class="sparkle" style="top:55%;left:3%;animation-delay:1s;font-size:10px">✦</span>
-    <span class="sparkle" style="top:40%;right:5%;animation-delay:1.5s;font-size:14px;color:#A78BFA">+</span>
-    <span class="sparkle" style="top:70%;right:12%;animation-delay:2s;font-size:10px">✦</span>
   </section>
 
   <hr class="divider">
@@ -920,7 +1313,7 @@
     </div>
   </section>
 
-  <hr class="divider">
+  <hr class="divider--fade divider">
 
   <!-- Solution -->
   <section class="solution" id="solution">
@@ -963,46 +1356,68 @@
         <span class="how__prompt-char">❯ </span><span class="how__prompt-cmd">vibes --help</span>
       </div>
       <p class="how__tagline reveal">4단계로 완성되는 블라인드 MVP 매칭</p>
-      <div class="how__section-label reveal">COMMANDS</div>
 
-      <div class="cmd-item reveal">
-        <div class="cmd-item__name">init</div>
-        <div>
-          <div class="cmd-item__title">요구사항 등록</div>
-          <p class="cmd-item__desc">클라이언트가 원하는 MVP의 핵심 기능과 기술 스택을 등록합니다. 예산과 일정도 함께 설정합니다.</p>
+      <div class="how__cards">
+        <div class="how-card reveal">
+          <div class="how-card__number">1</div>
+          <span class="how-card__arrow">→</span>
+          <div class="how-card__icon">📋</div>
+          <div class="how-card__name">init</div>
+          <div class="how-card__title">요구사항 등록</div>
+          <p class="how-card__desc">클라이언트가 원하는 MVP의 핵심 기능과 기술 스택을 등록합니다. 예산과 일정도 함께 설정합니다.</p>
         </div>
-      </div>
-      <div class="cmd-item reveal">
-        <div class="cmd-item__name">match</div>
-        <div>
-          <div class="cmd-item__title">블라인드 빌드 과제</div>
-          <p class="cmd-item__desc">매칭된 개발자들이 동일한 미니 과제를 블라인드로 수행합니다. 이름, 경력, 포트폴리오 — 모두 비공개.</p>
+        <div class="how-card reveal">
+          <div class="how-card__number">2</div>
+          <span class="how-card__arrow">→</span>
+          <div class="how-card__icon">🔒</div>
+          <div class="how-card__name">match</div>
+          <div class="how-card__title">블라인드 빌드 과제</div>
+          <p class="how-card__desc">매칭된 개발자들이 동일한 미니 과제를 블라인드로 수행합니다. 이름, 경력, 포트폴리오 — 모두 비공개.</p>
         </div>
-      </div>
-      <div class="cmd-item reveal">
-        <div class="cmd-item__name">build</div>
-        <div>
-          <div class="cmd-item__title">결과물 평가</div>
-          <p class="cmd-item__desc">클라이언트가 블라인드 결과물을 비교 평가합니다. 코드 품질, 완성도, 속도 — 결과물이 전부입니다.</p>
+        <div class="how-card reveal">
+          <div class="how-card__number">3</div>
+          <span class="how-card__arrow">→</span>
+          <div class="how-card__icon">⚡</div>
+          <div class="how-card__name">build</div>
+          <div class="how-card__title">결과물 평가</div>
+          <p class="how-card__desc">클라이언트가 블라인드 결과물을 비교 평가합니다. 코드 품질, 완성도, 속도 — 결과물이 전부입니다.</p>
         </div>
-      </div>
-      <div class="cmd-item reveal">
-        <div class="cmd-item__name">select</div>
-        <div>
-          <div class="cmd-item__title">매칭 & 프로젝트 시작</div>
-          <p class="cmd-item__desc">선택된 개발자와 프로젝트를 시작합니다. 마일스톤 기반으로 진행하며, 결과물로 계속 검증합니다.</p>
+        <div class="how-card reveal">
+          <div class="how-card__number">4</div>
+          <div class="how-card__icon">🚀</div>
+          <div class="how-card__name">select</div>
+          <div class="how-card__title">매칭 & 프로젝트 시작</div>
+          <p class="how-card__desc">선택된 개발자와 프로젝트를 시작합니다. 마일스톤 기반으로 진행하며, 결과물로 계속 검증합니다.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="divider">
+  <hr class="divider--fade divider">
 
   <!-- Waitlist -->
   <section class="waitlist" id="waitlist">
     <div class="wrap">
       <h2 class="waitlist__title reveal">웨이트리스트 등록</h2>
       <p class="waitlist__sub reveal">결과물로 증명하는 시대, 가장 먼저 시작하세요.</p>
+      <div class="waitlist__counter reveal">
+        <span class="waitlist__counter-num" id="waitlistCount">0</span>명이 대기 중
+      </div>
+
+      <div class="waitlist__benefits reveal">
+        <div class="waitlist__benefit">
+          <span class="waitlist__benefit-icon">✓</span>
+          얼리 액세스 우선 초대
+        </div>
+        <div class="waitlist__benefit">
+          <span class="waitlist__benefit-icon">✓</span>
+          첫 매칭 수수료 무료
+        </div>
+        <div class="waitlist__benefit">
+          <span class="waitlist__benefit-icon">✓</span>
+          런칭 전 피드백 참여
+        </div>
+      </div>
 
       <div class="waitlist__box">
         <div class="cli-box reveal">
@@ -1043,42 +1458,88 @@
 <footer>
   <div class="wrap">
     <div class="footer">
-      <span>© 2026 Vibes</span>
-      <div class="footer__links">
-        <a href="https://www.threads.net/@vibes" target="_blank" rel="noopener">Threads</a>
-        <a href="https://www.instagram.com/vibes" target="_blank" rel="noopener">Instagram</a>
+      <div class="footer__main">
+        <div>
+          <a href="#" class="footer__brand-logo">
+            <span class="footer__brand-mark">❯</span>
+            <span class="footer__brand-name">vibes</span>
+          </a>
+          <p class="footer__brand-desc">포트폴리오 말고, 결과물로 증명하세요. 바이브 코딩 시대의 블라인드 MVP 매칭 플랫폼.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Product</div>
+          <ul class="footer__col-links">
+            <li><a href="#how">매칭 프로세스</a></li>
+            <li><a href="#">개발자 가이드 <span class="footer__soon">SOON</span></a></li>
+            <li><a href="#">클라이언트 가이드 <span class="footer__soon">SOON</span></a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Connect</div>
+          <ul class="footer__col-links">
+            <li><a href="https://www.threads.net/@vibes" target="_blank" rel="noopener">Threads</a></li>
+            <li><a href="https://www.instagram.com/vibes" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="mailto:hello@usevibes.app">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Vibes. All rights reserved.</span>
+        <div class="footer__bottom-links">
+          <a href="#">개인정보처리방침</a>
+          <a href="#">이용약관</a>
+        </div>
       </div>
     </div>
   </div>
 </footer>
+
+<!-- BGM Toggle -->
+<button class="bgm-toggle playing" id="bgmToggle" aria-label="배경음악 토글" title="Lo-fi BGM">
+  <div class="bgm-bars">
+    <span class="bgm-bar"></span>
+    <span class="bgm-bar"></span>
+    <span class="bgm-bar"></span>
+    <span class="bgm-bar"></span>
+  </div>
+</button>
 
 <script>
 /* ── Nav scroll ── */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), { passive: true });
 
-/* ── Reveal ── */
+/* ── Hero glow parallax ── */
+const heroGlow = document.getElementById('heroGlow');
+if (heroGlow) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY * 0.15;
+    heroGlow.style.transform = `translateX(-50%) translateY(${y}px)`;
+  }, { passive: true });
+}
+
+/* ── Reveal (stagger: 100ms) ── */
 const io = new IntersectionObserver(
   entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }),
   { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
 );
 document.querySelectorAll('section, footer').forEach(sec => {
   sec.querySelectorAll('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 60}ms`;
+    el.style.transitionDelay = `${i * 100}ms`;
     io.observe(el);
   });
 });
 /* Hero instant */
 document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-  setTimeout(() => el.classList.add('visible'), 80 + i * 100);
+  setTimeout(() => el.classList.add('visible'), 80 + i * 120);
 });
 
-/* ── Diff line reveal ── */
+/* ── Diff line reveal (stagger: 120ms) ── */
 const diffIo = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     e.target.querySelectorAll('.diff__line').forEach((l, i) => {
-      setTimeout(() => l.classList.add('visible'), i * 100);
+      setTimeout(() => l.classList.add('visible'), i * 120);
     });
     diffIo.unobserve(e.target);
   });
@@ -1110,7 +1571,6 @@ async function typeText(parent, text, speed = 40) {
 }
 
 async function heroAnim() {
-  /* prompt */
   const line1 = el(null, '<span class="cli-box__prompt">❯ </span><span class="cli-box__cmd"></span><span class="cursor">▋</span>');
   const cmdSpan = line1.querySelector('.cli-box__cmd');
   const cur = line1.querySelector('.cursor');
@@ -1119,11 +1579,9 @@ async function heroAnim() {
   cur.remove();
   await wait(500);
 
-  /* thinking */
   const think = el(null, '<span class="thinking">⏺</span> <span class="cli-box__dim">요구사항 분석 중...</span>');
   await wait(800);
 
-  /* metadata */
   el(null, '');
   el(null, '  <span class="cli-box__label">기능</span> <span class="cli-box__val">소셜 커머스 MVP</span>');
   await wait(200);
@@ -1132,11 +1590,9 @@ async function heroAnim() {
   el(null, '  <span class="cli-box__label">기한</span> <span class="cli-box__val">2주</span>');
   await wait(600);
 
-  /* remove thinking, add result */
   think.innerHTML = '<span class="cli-box__arrow">→</span> 3명의 개발자 블라인드 매칭 완료';
   await wait(400);
 
-  /* progress bar */
   el(null, '');
   const pLine = el(null, '<span class="cli-progress"></span>');
   const prog = pLine.querySelector('.cli-progress');
@@ -1158,7 +1614,6 @@ async function heroAnim() {
   });
   await wait(300);
 
-  /* success */
   el(null, '');
   el(null, '<span class="cli-box__ok">✓</span> MVP 빌드 완료 — 결과물로 선택하세요');
 }
@@ -1170,6 +1625,22 @@ const heroBoxObs = new IntersectionObserver(entries => {
   }
 }, { threshold: 0.3 });
 heroBoxObs.observe(document.getElementById('heroBox'));
+
+/* ── Waitlist Counter Animation ── */
+const countEl = document.getElementById('waitlistCount');
+const counterTarget = 147;
+const counterIo = new IntersectionObserver(entries => {
+  if (!entries[0].isIntersecting) return;
+  let current = 0;
+  const step = Math.ceil(counterTarget / 40);
+  const timer = setInterval(() => {
+    current = Math.min(current + step, counterTarget);
+    countEl.textContent = current;
+    if (current >= counterTarget) clearInterval(timer);
+  }, 30);
+  counterIo.unobserve(entries[0].target);
+}, { threshold: 0.5 });
+counterIo.observe(countEl);
 
 /* ── Toggle ── */
 const toggleBtns = document.querySelectorAll('.toggle__btn');
@@ -1250,6 +1721,187 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     e.preventDefault();
     document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
   });
+});
+
+/* ── Lo-fi BGM — Sunset (Web Audio API) ── */
+const bgmBtn = document.getElementById('bgmToggle');
+let bgmPlaying = false;
+let bgmInstance = null;
+
+function createLofi() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const sr = ctx.sampleRate;
+  const master = ctx.createGain();
+  master.gain.value = 0;
+
+  /* Reverb */
+  const rvLen = sr * 2.5;
+  const rvBuf = ctx.createBuffer(2, rvLen, sr);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = rvBuf.getChannelData(ch);
+    for (let i = 0; i < rvLen; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / rvLen, 2.5);
+  }
+  const reverb = ctx.createConvolver(); reverb.buffer = rvBuf;
+  const rvG = ctx.createGain(); rvG.gain.value = 0.35;
+  const dryG = ctx.createGain(); dryG.gain.value = 0.65;
+
+  const lofi = ctx.createBiquadFilter(); lofi.type = 'lowpass'; lofi.frequency.value = 2800; lofi.Q.value = 0.7;
+  const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 80;
+  dryG.connect(lofi); rvG.connect(lofi); lofi.connect(hp); hp.connect(master); master.connect(ctx.destination);
+
+  const sendDry = ctx.createGain(); sendDry.connect(dryG);
+  const sendWet = ctx.createGain(); sendWet.connect(reverb); reverb.connect(rvG);
+
+  /* Vinyl crackle */
+  const nLen = sr * 4;
+  const nBuf = ctx.createBuffer(1, nLen, sr);
+  const nd = nBuf.getChannelData(0);
+  for (let i = 0; i < nLen; i++) {
+    nd[i] = Math.random() * 2 - 1;
+    if (Math.random() < 0.0003) nd[i] = (Math.random() > 0.5 ? 1 : -1) * (0.3 + Math.random() * 0.5);
+  }
+  const noise = ctx.createBufferSource(); noise.buffer = nBuf; noise.loop = true;
+  const nBP = ctx.createBiquadFilter(); nBP.type = 'bandpass'; nBP.frequency.value = 3000; nBP.Q.value = 0.8;
+  const nHP = ctx.createBiquadFilter(); nHP.type = 'highpass'; nHP.frequency.value = 500;
+  const nG = ctx.createGain(); nG.gain.value = 0.025;
+  noise.connect(nBP); nBP.connect(nHP); nHP.connect(nG); nG.connect(dryG); noise.start();
+
+  /* Tape wobble */
+  const wobLfo = ctx.createOscillator(); wobLfo.frequency.value = 0.4;
+  const wobG = ctx.createGain(); wobG.gain.value = 4;
+  wobLfo.connect(wobG); wobLfo.start();
+
+  /* Dmaj7 → Em7 → F#m7 → Gmaj7 */
+  const chords = [
+    [293.66, 369.99, 440.00, 554.37],
+    [329.63, 392.00, 493.88, 587.33],
+    [369.99, 440.00, 554.37, 659.26],
+    [392.00, 493.88, 587.33, 739.99],
+  ];
+  const beatSec = 60 / 70;
+  const barSec = beatSec * 4;
+  const loopSec = barSec * 4;
+
+  function playNote(freq, t, dur) {
+    const o1 = ctx.createOscillator(); o1.type = 'sine'; o1.frequency.value = freq;
+    const o2 = ctx.createOscillator(); o2.type = 'sine'; o2.frequency.value = freq * 2;
+    wobG.connect(o1.detune); wobG.connect(o2.detune);
+    const mix = ctx.createGain(); const env = ctx.createGain();
+    o1.connect(mix);
+    const hG = ctx.createGain(); hG.gain.value = 0.15;
+    o2.connect(hG); hG.connect(mix); mix.connect(env);
+    env.connect(sendDry); env.connect(sendWet);
+    env.gain.setValueAtTime(0, t);
+    env.gain.linearRampToValueAtTime(0.045, t + 0.02);
+    env.gain.exponentialRampToValueAtTime(0.025, t + 0.15);
+    env.gain.exponentialRampToValueAtTime(0.003, t + dur);
+    env.gain.linearRampToValueAtTime(0, t + dur + 0.1);
+    o1.start(t); o1.stop(t + dur + 0.2);
+    o2.start(t); o2.stop(t + dur + 0.2);
+  }
+
+  let cA = ctx.currentTime + 0.3;
+  function schedC() {
+    while (cA < ctx.currentTime + 8) {
+      chords.forEach((ch, ci) => {
+        const t0 = cA + ci * barSec;
+        ch.forEach((f, ni) => playNote(f, t0 + ni * 0.06, barSec * 0.85));
+        playNote(ch[0] * 0.5, t0 + beatSec * 2, beatSec * 1.5);
+      });
+      cA += loopSec;
+    }
+  }
+  schedC();
+  const t1 = setInterval(schedC, 3000);
+
+  /* Sub bass */
+  const sub = ctx.createOscillator(); sub.type = 'sine'; sub.frequency.value = chords[0][0] / 2;
+  const sG = ctx.createGain(); sG.gain.value = 0.05;
+  const sLP = ctx.createBiquadFilter(); sLP.type = 'lowpass'; sLP.frequency.value = 150;
+  sub.connect(sG); sG.connect(sLP); sLP.connect(sendDry); sub.start();
+  let sA = ctx.currentTime + 0.3;
+  function schedS() {
+    while (sA < ctx.currentTime + 8) {
+      chords.forEach((ch, ci) => sub.frequency.setValueAtTime(ch[0] / 2, sA + ci * barSec));
+      sA += loopSec;
+    }
+  }
+  schedS();
+  const t2 = setInterval(schedS, 3000);
+
+  /* Hi-hat */
+  const hBuf = ctx.createBuffer(1, sr * 0.08, sr);
+  const hD = hBuf.getChannelData(0);
+  for (let i = 0; i < hD.length; i++) hD[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / hD.length, 6);
+  function hat(t, v) {
+    const s = ctx.createBufferSource(); s.buffer = hBuf;
+    const g = ctx.createGain(); g.gain.value = v;
+    const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 6000;
+    s.connect(f); f.connect(g); g.connect(sendDry); s.start(t);
+  }
+  let hA = ctx.currentTime + 0.3;
+  function schedH() {
+    while (hA < ctx.currentTime + 8) {
+      for (let ci = 0; ci < 4; ci++) {
+        const bs = hA + ci * barSec;
+        for (let b = 0; b < 8; b++) {
+          const t = bs + b * (beatSec / 2);
+          const v = b % 2 === 1 ? 0.02 : 0.008;
+          const sw = b % 2 === 1 ? 0.02 : 0;
+          hat(t + sw + (Math.random() - 0.5) * 0.008, v * (0.8 + Math.random() * 0.4));
+        }
+      }
+      hA += loopSec;
+    }
+  }
+  schedH();
+  const t3 = setInterval(schedH, 3000);
+
+  return { ctx, master, timers: [t1, t2, t3] };
+}
+
+function destroyBgm() {
+  if (!bgmInstance) return;
+  bgmInstance.timers.forEach(clearInterval);
+  bgmInstance.ctx.close().catch(() => {});
+  bgmInstance = null;
+}
+
+function startBgm() {
+  if (bgmPlaying) return;
+  destroyBgm();
+  bgmInstance = createLofi();
+  if (bgmInstance.ctx.state === 'suspended') bgmInstance.ctx.resume();
+  bgmInstance.master.gain.linearRampToValueAtTime(0.9, bgmInstance.ctx.currentTime + 2);
+  bgmPlaying = true;
+  bgmBtn.classList.add('playing');
+}
+
+function stopBgm() {
+  if (!bgmPlaying || !bgmInstance) return;
+  const ctx = bgmInstance.ctx;
+  bgmInstance.master.gain.cancelScheduledValues(ctx.currentTime);
+  bgmInstance.master.gain.setValueAtTime(bgmInstance.master.gain.value, ctx.currentTime);
+  bgmInstance.master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
+  bgmPlaying = false;
+  bgmBtn.classList.remove('playing');
+  setTimeout(destroyBgm, 2000);
+}
+
+/* 첫 인터랙션 시 자동 재생 */
+function autoStart() {
+  startBgm();
+  document.removeEventListener('click', autoStart);
+  document.removeEventListener('scroll', autoStart);
+  document.removeEventListener('keydown', autoStart);
+}
+document.addEventListener('click', autoStart, { once: false });
+document.addEventListener('scroll', autoStart, { once: false, passive: true });
+document.addEventListener('keydown', autoStart, { once: false });
+
+bgmBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (bgmPlaying) stopBgm(); else startBgm();
 });
 </script>
 
