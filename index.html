@@ -663,6 +663,110 @@
       gap: 16px;
     }
 
+    .hero { position: relative; }
+
+    /* ── Ambient Glow ── */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(212,135,94,0.07) 0%, rgba(167,139,250,0.04) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero > .wrap { position: relative; z-index: 1; }
+
+    /* ── Sparkles ── */
+    .sparkle {
+      position: absolute;
+      color: var(--accent);
+      animation: sparkle 2.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+      font-size: 12px;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 0.8; transform: scale(1.1) rotate(180deg); }
+    }
+
+    /* ── Upgrade: Buttons ── */
+    .btn--accent { position: relative; overflow: hidden; }
+    .btn--accent:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px var(--accent-dim);
+    }
+    .btn--accent::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      animation: shine 4s ease-in-out infinite;
+    }
+    @keyframes shine {
+      0%, 70%, 100% { left: -100%; }
+      35% { left: 120%; }
+    }
+    .warn-item:hover { box-shadow: -4px 0 16px -4px var(--accent-dim); }
+    .toggle__btn { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+    /* ── Upgrade: Section Tags ── */
+    .problem__head-icon {
+      background: var(--red-dim);
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-shadow: 0 0 12px rgba(167,139,250,0.4);
+    }
+    .solution__head-icon {
+      background: var(--green-dim);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Upgrade: Diff Line Numbers ── */
+    .diff__body { counter-reset: diffline; }
+    .diff__line { counter-increment: diffline; }
+    .diff__line::before {
+      content: counter(diffline);
+      display: inline-block;
+      width: 20px;
+      margin-right: 12px;
+      text-align: right;
+      color: var(--text-dim);
+      font-size: 11px;
+      opacity: 0.4;
+    }
+
+    /* ── Upgrade: Quote Gradient ── */
+    .quote {
+      border-left: 2px solid;
+      border-image: linear-gradient(to bottom, var(--accent), #A78BFA) 1;
+    }
+
+    /* ── Upgrade: Divider Pulse ── */
+    .divider::after { animation: diamondPulse 3s ease-in-out infinite; }
+    @keyframes diamondPulse {
+      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
+    }
+
+    /* ── Upgrade: Logo Pulse ── */
+    .nav__logo-mark { animation: logoPulse 3s ease-in-out infinite; }
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 16px var(--accent-dim), 0 0 0 1px rgba(212,135,94,0.2); }
+      50% { box-shadow: 0 0 24px var(--accent-dim), 0 0 0 1px rgba(212,135,94,0.35); }
+    }
+
+    /* ── Upgrade: Footer Purple ── */
+    .footer a:hover { color: #A78BFA; }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       body { font-size: 13px; }
@@ -678,6 +782,7 @@
       .form-label { width: auto; text-align: left; }
       .form-error { margin-left: 0; }
       .footer { flex-direction: column; gap: 12px; text-align: center; }
+      .sparkle:nth-of-type(n+4) { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -687,6 +792,7 @@
       }
       .reveal { opacity: 1; transform: none; }
       .diff__line { opacity: 1; transform: none; }
+      .sparkle { display: none; }
     }
   </style>
 </head>
@@ -722,6 +828,11 @@
         <a href="#how" class="btn btn--ghost">어떻게 작동하나요?</a>
       </div>
     </div>
+    <span class="sparkle" style="top:18%;left:6%">✦</span>
+    <span class="sparkle" style="top:30%;right:10%;animation-delay:0.5s;color:#A78BFA">+</span>
+    <span class="sparkle" style="top:55%;left:3%;animation-delay:1s;font-size:10px">✦</span>
+    <span class="sparkle" style="top:40%;right:5%;animation-delay:1.5s;font-size:14px;color:#A78BFA">+</span>
+    <span class="sparkle" style="top:70%;right:12%;animation-delay:2s;font-size:10px">✦</span>
   </section>
 
   <hr class="divider">
@@ -1060,13 +1171,15 @@ form.addEventListener('submit', async e => {
   const role = inputRole.value;
   const name = nameInput.value.trim();
 
-  /* Google Forms — 실제 Form ID / entry ID로 교체 필요 */
-  const url = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
-  const fd = new URLSearchParams();
-  fd.append('entry.NAME_ID', name);
-  fd.append('entry.EMAIL_ID', email);
-  fd.append('entry.ROLE_ID', role);
-  try { await fetch(url, { method: 'POST', mode: 'no-cors', body: fd }); } catch {}
+  const url = 'https://script.google.com/macros/s/AKfycbx2jlWT141xqESFs_RhIVsqocudgv4zX9H4p7ESjqxXBtWR8NC-Nz_9BZ8vrUuQYi1DnA/exec';
+  try {
+    await fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ name, email, role })
+    });
+  } catch {}
 
   formView.style.display = 'none';
   resultView.style.display = 'block';
