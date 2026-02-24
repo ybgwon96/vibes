@@ -1,1 +1,6 @@
 .vercel
+node_modules
+og.html
+gen-og.js
+package.json
+package-lock.json
