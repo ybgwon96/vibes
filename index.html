@@ -1725,7 +1725,7 @@
 </footer>
 
 <!-- BGM Toggle -->
-<button class="bgm-toggle playing" id="bgmToggle" aria-label="배경음악 토글" title="Lo-fi BGM">
+<button class="bgm-toggle" id="bgmToggle" aria-label="배경음악 토글" title="Lo-fi BGM">
   <div class="bgm-bars">
     <span class="bgm-bar"></span>
     <span class="bgm-bar"></span>
@@ -2118,10 +2118,15 @@ function startBgm() {
   if (bgmPlaying) return;
   destroyBgm();
   bgmInstance = createLofi();
-  if (bgmInstance.ctx.state === 'suspended') bgmInstance.ctx.resume();
-  bgmInstance.master.gain.linearRampToValueAtTime(0.9, bgmInstance.ctx.currentTime + 2);
-  bgmPlaying = true;
-  bgmBtn.classList.add('playing');
+  const ctx = bgmInstance.ctx;
+  function activate() {
+    if (!bgmInstance || bgmPlaying) return;
+    bgmInstance.master.gain.linearRampToValueAtTime(0.9, ctx.currentTime + 2);
+    bgmPlaying = true;
+    bgmBtn.classList.add('playing');
+  }
+  ctx.resume().then(activate).catch(() => {});
+  if (ctx.state === 'running') activate();
 }
 
 function stopBgm() {
@@ -2135,27 +2140,25 @@ function stopBgm() {
   setTimeout(destroyBgm, 2000);
 }
 
-function autoStart() {
+const activationEvents = ['click','keydown','touchstart','pointerdown'];
+function autoStart(e) {
+  if (bgmBtn.contains(e.target)) return;
   startBgm();
-  removeAutoListeners();
+  activationEvents.forEach(ev => document.removeEventListener(ev, autoStart));
 }
-function removeAutoListeners() {
-  ['click','scroll','keydown','touchstart','mousemove','pointerdown'].forEach(
-    ev => document.removeEventListener(ev, autoStart)
-  );
-}
-// 1) 페이지 로드 시 즉시 시도
-startBgm();
-// 2) 브라우저가 차단한 경우 첫 인터랙션에서 재생
-if (!bgmPlaying) {
-  ['click','scroll','keydown','touchstart','mousemove','pointerdown'].forEach(
-    ev => document.addEventListener(ev, autoStart, { once: true, passive: true })
-  );
-}
+// 첫 유저 제스처에서 재생 시작 (scroll·mousemove는 Chrome autoplay 정책상 제스처 미인정)
+activationEvents.forEach(
+  ev => document.addEventListener(ev, autoStart, { passive: true })
+);
 
 bgmBtn.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (bgmPlaying) stopBgm(); else startBgm();
+  if (bgmPlaying) {
+    stopBgm();
+  } else {
+    startBgm();
+    activationEvents.forEach(ev => document.removeEventListener(ev, autoStart));
+  }
 });
 </script>
 
