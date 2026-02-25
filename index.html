@@ -2137,13 +2137,21 @@ function stopBgm() {
 
 function autoStart() {
   startBgm();
-  document.removeEventListener('click', autoStart);
-  document.removeEventListener('scroll', autoStart);
-  document.removeEventListener('keydown', autoStart);
+  removeAutoListeners();
 }
-document.addEventListener('click', autoStart, { once: false });
-document.addEventListener('scroll', autoStart, { once: false, passive: true });
-document.addEventListener('keydown', autoStart, { once: false });
+function removeAutoListeners() {
+  ['click','scroll','keydown','touchstart','mousemove','pointerdown'].forEach(
+    ev => document.removeEventListener(ev, autoStart)
+  );
+}
+// 1) 페이지 로드 시 즉시 시도
+startBgm();
+// 2) 브라우저가 차단한 경우 첫 인터랙션에서 재생
+if (!bgmPlaying) {
+  ['click','scroll','keydown','touchstart','mousemove','pointerdown'].forEach(
+    ev => document.addEventListener(ev, autoStart, { once: true, passive: true })
+  );
+}
 
 bgmBtn.addEventListener('click', (e) => {
   e.stopPropagation();
