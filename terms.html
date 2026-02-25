@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이용약관 — Vibes</title>
+  <meta name="description" content="Vibes 이용약관">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#08080C">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23E0B96A'/%3E%3Cstop offset='1' stop-color='%23D4A853'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cline x1='6' y1='8' x2='16' y2='26' stroke='url(%23g)' stroke-width='2.8' stroke-linecap='round'/%3E%3Cline x1='26' y1='8' x2='16' y2='26' stroke='url(%23g)' stroke-width='2.8' stroke-linecap='round'/%3E%3Cpath d='M11 26A5 5 0 0 1 21 26' stroke='%23E0B96A' stroke-width='1.5' opacity='0.5' stroke-linecap='round'/%3E%3Cpath d='M8 26A8 8 0 0 1 24 26' stroke='%23E0B96A' stroke-width='1.2' opacity='0.3' stroke-linecap='round'/%3E%3Cpath d='M5 26A11 11 0 0 1 27 26' stroke='%23E0B96A' stroke-width='1' opacity='0.15' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Serif+KR:wght@600;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #08080C; --surface: #0E0E14; --border: #1C1C28;
+      --text: #A8A4B0; --text-bright: #F0ECE4; --text-dim: #5C5A6A;
+      --accent: #D4A853; --accent-hover: #E0B96A;
+      --body: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-hover); }
+
+    /* Nav */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 760px; margin: 0 auto; padding: 24px 24px 0;
+    }
+    .nav__logo {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .nav__logo-name {
+      font-family: var(--serif); font-style: italic;
+      font-size: 18px; color: var(--text-bright);
+    }
+    .nav__back {
+      font-size: 13px; color: var(--text-dim);
+    }
+    .nav__back:hover { color: var(--text); }
+
+    /* Content */
+    .content {
+      max-width: 760px; margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .content h1 {
+      font-family: var(--body); font-weight: 700;
+      font-size: 28px; color: var(--text-bright);
+      margin-bottom: 8px; line-height: 1.4;
+    }
+    .content .subtitle {
+      font-size: 13px; color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+    .content h2 {
+      font-family: var(--body); font-weight: 600;
+      font-size: 18px; color: var(--text-bright);
+      margin-top: 48px; margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .content p { margin-bottom: 12px; }
+    .content ul, .content ol {
+      margin: 8px 0 16px 20px;
+    }
+    .content li { margin-bottom: 6px; }
+
+    /* Footer */
+    .footer {
+      max-width: 760px; margin: 0 auto;
+      padding: 24px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 11px; color: var(--text-dim);
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer__links { display: flex; gap: 16px; }
+    .footer__links a {
+      color: var(--text-dim); font-size: 11px;
+    }
+    .footer__links a:hover { color: var(--text); }
+
+    @media (max-width: 640px) {
+      .content h1 { font-size: 22px; }
+      .content h2 { font-size: 16px; }
+      .footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav__logo">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+      <defs><linearGradient id="vg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E0B96A"/><stop offset="1" stop-color="#D4A853"/></linearGradient></defs>
+      <line x1="6" y1="8" x2="16" y2="26" stroke="url(#vg)" stroke-width="2.8" stroke-linecap="round"/>
+      <line x1="26" y1="8" x2="16" y2="26" stroke="url(#vg)" stroke-width="2.8" stroke-linecap="round"/>
+    </svg>
+    <span class="nav__logo-name">vibes</span>
+  </a>
+  <a href="/" class="nav__back">&larr; 홈으로</a>
+</nav>
+
+<main class="content">
+  <h1>이용약관</h1>
+  <p class="subtitle">시행일: 2026년 2월 25일</p>
+
+  <h2>제1조 (목적)</h2>
+  <p>이 약관은 오르비스(ORBIS)(이하 "회사")가 운영하는 Vibes 서비스(이하 "서비스")의 이용 조건 및 절차, 회사와 회원 간의 권리·의무 및 책임 사항을 규정함을 목적으로 합니다.</p>
+
+  <h2>제2조 (정의)</h2>
+  <ol>
+    <li><strong>"서비스"</strong>란 회사가 제공하는 블라인드 MVP 매칭 플랫폼 Vibes 및 이에 부수하는 일체의 서비스를 말합니다.</li>
+    <li><strong>"회원"</strong>이란 이 약관에 동의하고 회사와 서비스 이용 계약을 체결한 자를 말합니다.</li>
+    <li><strong>"바이버(Viber)"</strong>란 서비스를 통해 자신의 개발 역량을 결과물로 증명하고 프로젝트 매칭을 받는 회원을 말합니다.</li>
+    <li><strong>"클라이언트(Client)"</strong>란 서비스를 통해 MVP 개발을 의뢰하거나 바이버와 매칭을 요청하는 회원을 말합니다.</li>
+    <li><strong>"MVP"</strong>란 최소 기능 제품(Minimum Viable Product)을 말합니다.</li>
+    <li><strong>"블라인드 매칭"</strong>이란 바이버의 신상 정보(학력, 경력 등)를 비공개한 상태에서 결과물(MVP) 품질만으로 진행되는 매칭 방식을 말합니다.</li>
+  </ol>
+
+  <h2>제3조 (약관의 명시와 개정)</h2>
+  <ol>
+    <li>회사는 이 약관의 내용을 서비스 화면에 게시하여 회원이 알 수 있도록 합니다.</li>
+    <li>회사는 「약관의 규제에 관한 법률」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 등 관련 법령을 위배하지 않는 범위에서 이 약관을 개정할 수 있습니다.</li>
+    <li>회사가 약관을 개정할 경우에는 적용일자 및 개정 사유를 명시하여 현행 약관과 함께 서비스 화면에 그 적용일자 7일 전부터 공지합니다. 다만, 회원에게 불리한 약관 변경의 경우에는 30일 전부터 공지합니다.</li>
+    <li>회원이 개정 약관의 적용에 동의하지 않는 경우, 회원은 서비스 이용을 중단하고 탈퇴할 수 있습니다.</li>
+  </ol>
+
+  <h2>제4조 (서비스의 제공 및 변경)</h2>
+  <ol>
+    <li>회사는 다음의 서비스를 제공합니다.
+      <ul>
+        <li>블라인드 MVP 매칭 서비스</li>
+        <li>사전 등록(Waitlist) 서비스</li>
+        <li>기타 회사가 정하는 서비스</li>
+      </ul>
+    </li>
+    <li>회사는 서비스의 내용을 변경하는 경우, 변경 내용을 사전에 공지합니다.</li>
+    <li>회사는 필요한 경우 서비스의 전부 또는 일부를 일시적으로 중단할 수 있으며, 사전에 공지합니다. 다만, 불가피한 사유가 있는 경우 사후에 공지할 수 있습니다.</li>
+  </ol>
+
+  <h2>제5조 (회원가입 및 계정)</h2>
+  <ol>
+    <li>서비스 이용을 희망하는 자는 회사가 정한 절차에 따라 약관에 동의하고 회원가입을 신청합니다.</li>
+    <li>회사는 다음 각 호에 해당하는 경우 회원가입을 승낙하지 않을 수 있습니다.
+      <ul>
+        <li>실명이 아니거나 타인의 정보를 이용한 경우</li>
+        <li>허위의 정보를 기재한 경우</li>
+        <li>기타 회사가 정한 이용 요건을 충족하지 못한 경우</li>
+      </ul>
+    </li>
+    <li>회원은 자신의 계정 정보를 안전하게 관리할 책임이 있으며, 이를 제3자에게 양도하거나 대여할 수 없습니다.</li>
+  </ol>
+
+  <h2>제6조 (회원의 의무)</h2>
+  <p>회원은 다음 행위를 하여서는 안 됩니다.</p>
+  <ol>
+    <li>타인의 정보를 도용하거나 허위 정보를 등록하는 행위</li>
+    <li>서비스를 이용하여 얻은 정보를 회사의 사전 승낙 없이 영리 목적으로 이용하거나 제3자에게 제공하는 행위</li>
+    <li>회사 및 제3자의 지식재산권을 침해하는 행위</li>
+    <li>회사 및 제3자의 명예를 훼손하거나 업무를 방해하는 행위</li>
+    <li>서비스의 안정적 운영을 방해하는 행위 (해킹, 악성코드 유포, 과도한 트래픽 발생 등)</li>
+    <li>블라인드 매칭 원칙을 훼손하기 위해 신상 정보를 의도적으로 노출하는 행위</li>
+    <li>기타 관련 법령 또는 이 약관에 위배되는 행위</li>
+  </ol>
+
+  <h2>제7조 (서비스 이용 제한·중지)</h2>
+  <ol>
+    <li>회사는 회원이 제6조의 의무를 위반한 경우, 서비스 이용을 제한하거나 이용 계약을 해지할 수 있습니다.</li>
+    <li>회사는 다음 각 호에 해당하는 경우 서비스 제공을 일시적으로 중단할 수 있습니다.
+      <ul>
+        <li>시스템 정기 점검, 증설, 교체 등 설비 보수가 필요한 경우</li>
+        <li>천재지변, 국가비상사태, 정전 등 불가항력적인 사유가 발생한 경우</li>
+        <li>서비스 이용의 폭주 등으로 정상적인 서비스 제공이 곤란한 경우</li>
+      </ul>
+    </li>
+    <li>회사는 서비스 이용 제한·중지 시 그 사유 및 기간을 회원에게 통지합니다.</li>
+  </ol>
+
+  <h2>제8조 (지식재산권)</h2>
+  <ol>
+    <li>서비스에 대한 저작권 및 지식재산권은 회사에 귀속됩니다.</li>
+    <li>회원이 서비스를 통해 제출한 MVP, 포트폴리오 등 결과물에 대한 지식재산권은 해당 회원에게 귀속됩니다. 다만, 회사는 서비스 운영 및 개선 목적으로 해당 결과물을 서비스 내에서 전시·소개할 수 있습니다.</li>
+    <li>회원은 서비스 이용 과정에서 회사의 지식재산권을 침해하여서는 안 됩니다.</li>
+  </ol>
+
+  <h2>제9조 (면책조항)</h2>
+  <ol>
+    <li>회사는 천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면제됩니다.</li>
+    <li>회사는 회원의 귀책사유로 인한 서비스 이용의 장애에 대하여 책임을 지지 않습니다.</li>
+    <li>회사는 회원 간 또는 회원과 제3자 간에 서비스를 매개로 발생한 분쟁에 대해 개입할 의무가 없으며, 이로 인한 손해를 배상할 책임이 없습니다.</li>
+    <li>회사는 서비스를 통해 제공되는 매칭 결과의 정확성, 적합성 등을 보증하지 않습니다.</li>
+  </ol>
+
+  <h2>제10조 (손해배상)</h2>
+  <ol>
+    <li>회사 또는 회원이 이 약관의 규정을 위반하여 상대방에게 손해를 입힌 경우, 그 손해를 배상할 책임이 있습니다.</li>
+    <li>회사의 손해배상 범위는 통상 손해에 한하며, 특별한 사정으로 인한 손해는 회사가 그 사정을 알았거나 알 수 있었을 때에 한하여 배상합니다.</li>
+  </ol>
+
+  <h2>제11조 (준거법 및 관할법원)</h2>
+  <ol>
+    <li>이 약관의 해석 및 서비스 이용에 관한 분쟁은 대한민국 법령을 적용합니다.</li>
+    <li>서비스 이용과 관련하여 회사와 회원 사이에 분쟁이 발생한 경우, 회사의 본점 소재지를 관할하는 법원을 관할법원으로 합니다.</li>
+  </ol>
+
+  <h2>부칙</h2>
+  <p>이 약관은 2026년 2월 25일부터 시행합니다.</p>
+
+  <p style="margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-dim);">
+    <strong style="color: var(--text);">사업자 정보</strong><br>
+    상호: 오르비스(ORBIS) | 대표자: 권용범<br>
+    사업자등록번호: 825-16-02771<br>
+    소재지: 서울특별시 금천구 서부샛길 224, 203호(독산동)<br>
+    업태: 정보통신업 | 종목: 컴퓨터 프로그래밍 서비스업<br>
+    이메일: <a href="mailto:ybgwon96@gmail.com">ybgwon96@gmail.com</a>
+  </p>
+</main>
+
+<footer class="footer">
+  <span>&copy; 2026 Vibes. All rights reserved.</span>
+  <div class="footer__links">
+    <a href="/privacy.html">개인정보처리방침</a>
+    <a href="/terms.html">이용약관</a>
+  </div>
+</footer>
+
+</body>
+</html>
